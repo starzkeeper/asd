@@ -335,11 +335,21 @@ export default function Index() {
               </div>
             </div>
 
-            <Link to={`/exchange-confirm?from=1000&to=${(1000 / 478.5 * (1 - 2 / 100)).toFixed(2)}`}>
-              <Button className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3 font-medium">
-                ПЕРЕЙТИ К ОБМЕНУ
-              </Button>
-            </Link>
+            <Button
+              onClick={() => {
+                const defaultFrom = '22000';
+                const defaultTo = (22000 / 478.5 * (1 + 2 / 100)).toFixed(2);
+                exchangeStore.setExchangeData({
+                  fromAmount: defaultFrom,
+                  toAmount: defaultTo,
+                  exchangeRate: usdtRate
+                });
+                navigate('/exchange-confirm');
+              }}
+              className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3 font-medium"
+            >
+              ПЕРЕЙТИ К ОБМЕНУ
+            </Button>
           </div>
         </section>
 
@@ -401,7 +411,7 @@ export default function Index() {
             </div>
 
             <div>
-              <h4 className="font-semibold text-foreground mb-4">Контакты</h4>
+              <h4 className="font-semibold text-foreground mb-4">Контакт��</h4>
               <ul className="space-y-2 text-muted-foreground">
                 <li><a href="https://t.me/Serik_Maksat" className="hover:text-primary transition-colors">@Serik_Maksat</a></li>
                 <li><a href="https://t.me/BelieveredST" className="hover:text-primary transition-colors">@BelieveredST</a></li>
