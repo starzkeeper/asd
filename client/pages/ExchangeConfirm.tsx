@@ -6,12 +6,32 @@ import { ArrowLeft, ArrowRight, Globe, CheckCircle } from 'lucide-react';
 import { exchangeStore } from '@/lib/exchangeStore';
 
 export default function ExchangeConfirm() {
-  const [searchParams] = useSearchParams();
-  const fromAmount = searchParams.get('from') || '1000';
-  const toAmount = searchParams.get('to') || '2.09';
-  
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [walletAddress, setWalletAddress] = useState('');
+  const [fromAmount, setFromAmount] = useState('22000');
+  const [toAmount, setToAmount] = useState('46.01');
+
+  useEffect(() => {
+    const exchangeData = exchangeStore.getExchangeData();
+    if (exchangeData) {
+      setFromAmount(exchangeData.fromAmount);
+      setToAmount(exchangeData.toAmount);
+      if (exchangeData.email) setEmail(exchangeData.email);
+      if (exchangeData.walletAddress) setWalletAddress(exchangeData.walletAddress);
+    } else {
+      // Redirect to homepage if no exchange data
+      navigate('/');
+    }
+  }, [navigate]);
+
+  const handleConfirm = () => {
+    exchangeStore.updateExchangeData({
+      email,
+      walletAddress
+    });
+    navigate('/payment');
+  };
 
   return (
     <div className="min-h-screen crypto-gradient">
