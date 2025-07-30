@@ -77,7 +77,7 @@ export default function TransactionStatus() {
 
         <main className="container mx-auto px-4 py-8">
           <div className="max-w-2xl mx-auto">
-            <div className="card-gradient rounded-2xl p-8 text-center">
+            <div className="exchange-card rounded-3xl p-8 text-center">
               <div className="flex items-center justify-center mb-8">
                 <Clock className="w-16 h-16 text-primary animate-spin" />
               </div>
