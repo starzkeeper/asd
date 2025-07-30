@@ -108,7 +108,7 @@ export default function Index() {
     {
       icon: Shield,
       title: 'Безопасность',
-      description: 'Ба��ковская безопасность и современные методы шифрования данных'
+      description: 'Банковская безопасность и современные методы шифрования данных'
     },
     {
       icon: Zap,
@@ -195,7 +195,6 @@ export default function Index() {
           </div>
 
           <div className="grid lg:grid-cols-2 gap-12 items-start">
-            <div className="card-gradient rounded-2xl p-6">
               <div className="space-y-4">
                 <div>
                   <label className="text-sm text-muted-foreground mb-2 block">Отдаете</label>
@@ -251,7 +250,6 @@ export default function Index() {
                 </Button>
               </div>
             </div>
-          </div>
 
           <div>
             {/* Live USDT Trades */}
@@ -293,7 +291,7 @@ export default function Index() {
             <h2 className="text-3xl font-bold text-foreground mb-4">
               Меняйте криптовалюты - 
               <br />
-              быстро, выгодно, удобно!
+              бы��тро, выгодно, удобно!
             </h2>
             <p className="text-primary font-medium mb-12">
               Покупайте Tether USDT TRC-20
@@ -369,7 +367,7 @@ export default function Index() {
             <p className="text-muted-foreground leading-relaxed mb-6">
               ALMASU - ведущий обменник криптовалюты в Казахстане, предоставляющий
               надежные и б��стрые услуги обмена цифровых активов. Мы обеспечиваем
-              высочайший уровень безопасности и удобства для ��аших клиентов.
+              высочайший уровень безопасности и удобства для наших клиентов.
             </p>
             <div className="grid md:grid-cols-2 gap-8 text-center">
               <div>
