@@ -126,7 +126,7 @@ export default function Index() {
     {
       name: 'Александр К.',
       rating: 5,
-      text: 'Отличный сервис для обмена криптовалют. Быстро, надежно и с хорошими курсами.'
+      text: 'Отличный сервис для обмена криптовалют. Быстро, надежно и с хорошими курса��и.'
     },
     {
       name: 'Мария П.',
@@ -399,9 +399,7 @@ export default function Index() {
           <div className="grid md:grid-cols-2 gap-8">
             <div>
               <div className="flex items-center space-x-2 mb-4">
-                <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-                  <span className="text-primary-foreground font-bold text-sm">A</span>
-                </div>
+                <Logo />
                 <span className="text-xl font-semibold text-foreground">ALMASU</span>
               </div>
               <p className="text-muted-foreground">
