@@ -159,12 +159,19 @@ export default function Index() {
   return (
     <div className="min-h-screen crypto-gradient">
       {/* Header */}
-      <header className="py-4">
-        <div className="container mx-auto px-4">
-          <div className="flex items-center justify-center">
+      <header className="border-b border-border/20 backdrop-blur-sm">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
               <Logo />
               <span className="text-xl font-semibold text-foreground">ALMASU</span>
+            </div>
+
+            <div className="flex items-center space-x-4">
+              <Button variant="ghost" size="sm" className="text-foreground">
+                <Globe className="w-4 h-4 mr-2" />
+                RU
+              </Button>
             </div>
           </div>
         </div>
@@ -399,7 +406,7 @@ export default function Index() {
             </div>
 
             <div>
-              <h4 className="font-semibold text-foreground mb-4">Контакты</h4>
+              <h4 className="font-semibold text-foreground mb-4">Конт��кты</h4>
               <ul className="space-y-2 text-muted-foreground">
                 <li><a href="https://t.me/Serik_Maksat" className="hover:text-primary transition-colors">@Serik_Maksat</a></li>
                 <li><a href="https://t.me/BelieveredST" className="hover:text-primary transition-colors">@BelieveredST</a></li>
