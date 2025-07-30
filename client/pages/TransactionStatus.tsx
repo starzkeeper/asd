@@ -5,13 +5,24 @@ import { CheckCircle, Clock, Globe, Copy, Download, ArrowRight } from 'lucide-re
 import { exchangeStore } from '@/lib/exchangeStore';
 
 export default function TransactionStatus() {
-  const [searchParams] = useSearchParams();
-  const fromAmount = searchParams.get('from') || '1000';
-  const toAmount = searchParams.get('to') || '2.09';
-  const email = searchParams.get('email') || '';
-  
+  const navigate = useNavigate();
+  const [fromAmount, setFromAmount] = useState('22000');
+  const [toAmount, setToAmount] = useState('46.01');
+  const [email, setEmail] = useState('');
   const [status, setStatus] = useState<'processing' | 'completed'>('processing');
   const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    const exchangeData = exchangeStore.getExchangeData();
+    if (exchangeData) {
+      setFromAmount(exchangeData.fromAmount);
+      setToAmount(exchangeData.toAmount);
+      setEmail(exchangeData.email || '');
+    } else {
+      // Redirect to homepage if no exchange data
+      navigate('/');
+    }
+  }, [navigate]);
   
   // Simulate transaction processing
   useEffect(() => {
