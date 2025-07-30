@@ -20,6 +20,48 @@ export default function Index() {
   const [fromAmount, setFromAmount] = useState("22000");
   const [usdtRate, setUsdtRate] = useState<number | null>(null); // KZT per USDT (fetched from Coinbase)
 
+  // Initialize trades with real rate
+  const initializeTrades = (rate: number) => {
+    const now = new Date();
+    return [
+      {
+        id: 1,
+        amount: "1,250.00",
+        rate: rate.toFixed(2),
+        type: "Покупка",
+        time: new Date(now.getTime() - 30000).toLocaleTimeString(),
+      },
+      {
+        id: 2,
+        amount: "850.75",
+        rate: (rate + (Math.random() - 0.5) * 0.2).toFixed(2),
+        type: "Продажа",
+        time: new Date(now.getTime() - 95000).toLocaleTimeString(),
+      },
+      {
+        id: 3,
+        amount: "2,100.00",
+        rate: (rate + (Math.random() - 0.5) * 0.2).toFixed(2),
+        type: "Покупка",
+        time: new Date(now.getTime() - 180000).toLocaleTimeString(),
+      },
+      {
+        id: 4,
+        amount: "675.25",
+        rate: (rate + (Math.random() - 0.5) * 0.2).toFixed(2),
+        type: "Продажа",
+        time: new Date(now.getTime() - 245000).toLocaleTimeString(),
+      },
+      {
+        id: 5,
+        amount: "1,890.50",
+        rate: (rate + (Math.random() - 0.5) * 0.2).toFixed(2),
+        type: "Покупка",
+        time: new Date(now.getTime() - 320000).toLocaleTimeString(),
+      },
+    ];
+  };
+
   // Fetch real USDT rate from API
   useEffect(() => {
     const fetchUsdtRate = async () => {
@@ -34,6 +76,10 @@ export default function Index() {
 
         if (!Number.isNaN(kztNumber) && kztNumber > 0) {
           setUsdtRate(kztNumber);
+          // Initialize trades with real rate if this is the first load
+          if (liveTrades.length === 0) {
+            setLiveTrades(initializeTrades(kztNumber));
+          }
         }
       } catch (error) {
         console.error("Failed to fetch USDT/KZT rate:", error);
@@ -45,7 +91,7 @@ export default function Index() {
     // Refresh rate every 30 seconds
     const interval = setInterval(fetchUsdtRate, 300000);
     return () => clearInterval(interval);
-  }, []);
+  }, [liveTrades.length]);
 
   // Helper: bonus multiplier by USD tiers
   const markupMultiplier = (usd: number): number => {
@@ -147,7 +193,7 @@ export default function Index() {
     {
       name: "Александр К.",
       rating: 5,
-      text: "Отличный сервис для обмена криптовалют. Быстро, надежно и с хорошими курсами.",
+      text: "Отличный сервис дл�� обмена криптовалют. Быстро, надежно и с хорошими курсами.",
     },
     {
       name: "Мария П.",
