@@ -236,7 +236,7 @@ export default function TransactionStatus() {
           </div>
 
           {/* Support */}
-          <div className="card-gradient rounded-xl p-6 text-center">
+          <div className="modern-card rounded-3xl p-6 text-center">
             <h3 className="text-lg font-semibold text-foreground mb-2">
               Нужна помощь?
             </h3>
