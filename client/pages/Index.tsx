@@ -252,14 +252,12 @@ export default function Index() {
                   </div>
                 </div>
 
-                <Link
-                  to={`/exchange-confirm?from=${fromAmount}&to=${toAmount}`}
-                  className="block"
+                <Button
+                  onClick={handleExchange}
+                  className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-medium py-3"
                 >
-                  <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-medium py-3">
-                    ОБМЕН
-                  </Button>
-                </Link>
+                  ОБМЕН
+                </Button>
               </div>
             </div>
           </div>
