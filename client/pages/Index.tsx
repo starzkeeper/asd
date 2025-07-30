@@ -160,7 +160,7 @@ export default function Index() {
 
     // Use real USDT rate with small random variations
     const baseRate = usdtRate || 478.50;
-    const variation = (Math.random() - 0.5) * 0.1; // ±0.05 variation
+    const variation = (Math.random() - 0.5) * 0.4; // ±0.2 variation for more realistic spread
     const tradeRate = baseRate + variation;
 
     return {
@@ -193,7 +193,7 @@ export default function Index() {
     {
       name: "Александр К.",
       rating: 5,
-      text: "Отличный сервис дл�� обмена криптовалют. Быстро, надежно и с хорошими курсами.",
+      text: "Отличный сервис для обмена криптовалют. Быстро, надежно и с хорошими курсами.",
     },
     {
       name: "Мария П.",
