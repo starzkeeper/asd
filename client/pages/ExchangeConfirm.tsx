@@ -1,17 +1,17 @@
-import { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { ArrowLeft, ArrowRight, Globe, CheckCircle } from 'lucide-react';
-import { exchangeStore } from '@/lib/exchangeStore';
-import { Logo } from '@/components/ui/logo';
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { ArrowLeft, ArrowRight, Globe, CheckCircle } from "lucide-react";
+import { exchangeStore } from "@/lib/exchangeStore";
+import { Logo } from "@/components/ui/logo";
 
 export default function ExchangeConfirm() {
   const navigate = useNavigate();
-  const [email, setEmail] = useState('');
-  const [walletAddress, setWalletAddress] = useState('');
-  const [fromAmount, setFromAmount] = useState('22000');
-  const [toAmount, setToAmount] = useState('46.01');
+  const [email, setEmail] = useState("");
+  const [walletAddress, setWalletAddress] = useState("");
+  const [fromAmount, setFromAmount] = useState("22000");
+  const [toAmount, setToAmount] = useState("46.01");
 
   useEffect(() => {
     const exchangeData = exchangeStore.getExchangeData();
@@ -19,19 +19,20 @@ export default function ExchangeConfirm() {
       setFromAmount(exchangeData.fromAmount);
       setToAmount(exchangeData.toAmount);
       if (exchangeData.email) setEmail(exchangeData.email);
-      if (exchangeData.walletAddress) setWalletAddress(exchangeData.walletAddress);
+      if (exchangeData.walletAddress)
+        setWalletAddress(exchangeData.walletAddress);
     } else {
       // Redirect to homepage if no exchange data
-      navigate('/');
+      navigate("/");
     }
   }, [navigate]);
 
   const handleConfirm = () => {
     exchangeStore.updateExchangeData({
       email,
-      walletAddress
+      walletAddress,
     });
-    navigate('/payment');
+    navigate("/payment");
   };
 
   return (
@@ -46,7 +47,9 @@ export default function ExchangeConfirm() {
                 <span className="text-2xl font-bold bg-gradient-to-r from-primary to-yellow-400 bg-clip-text text-transparent">
                   ALMASU
                 </span>
-                <div className="text-xs text-muted-foreground">Обменник криптовалюты</div>
+                <div className="text-xs text-muted-foreground">
+                  Обменник криптовалюты
+                </div>
               </div>
             </Link>
 
@@ -63,7 +66,10 @@ export default function ExchangeConfirm() {
       <main className="container mx-auto px-4 py-8">
         <div className="max-w-2xl mx-auto">
           {/* Back Button */}
-          <Link to="/" className="inline-flex items-center text-muted-foreground hover:text-foreground mb-8 transition-colors">
+          <Link
+            to="/"
+            className="inline-flex items-center text-muted-foreground hover:text-foreground mb-8 transition-colors"
+          >
             <ArrowLeft className="w-4 h-4 mr-2" />
             Назад
           </Link>
@@ -79,12 +85,16 @@ export default function ExchangeConfirm() {
               <div className="flex items-center justify-between p-4 bg-background/50 rounded-xl">
                 <div>
                   <div className="text-sm text-muted-foreground">Отдаете</div>
-                  <div className="text-2xl font-bold text-foreground">{fromAmount} KZT</div>
+                  <div className="text-2xl font-bold text-foreground">
+                    {fromAmount} KZT
+                  </div>
                 </div>
                 <ArrowRight className="w-6 h-6 text-primary mx-4" />
                 <div className="text-right">
                   <div className="text-sm text-muted-foreground">Получаете</div>
-                  <div className="text-2xl font-bold text-foreground">{toAmount} USDT</div>
+                  <div className="text-2xl font-bold text-foreground">
+                    {toAmount} USDT
+                  </div>
                 </div>
               </div>
 
@@ -98,7 +108,9 @@ export default function ExchangeConfirm() {
                   <span className="text-foreground">0%</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">Время обработки:</span>
+                  <span className="text-muted-foreground">
+                    Время обработки:
+                  </span>
                   <span className="text-foreground">5-15 мин</span>
                 </div>
                 <div className="flex justify-between">
@@ -110,10 +122,14 @@ export default function ExchangeConfirm() {
 
             {/* Contact Information */}
             <div className="space-y-4 mb-8">
-              <h3 className="text-lg font-semibold text-foreground">Контактная информация</h3>
+              <h3 className="text-lg font-semibold text-foreground">
+                Контактная информация
+              </h3>
 
               <div>
-                <label className="text-sm text-muted-foreground mb-2 block">Email адрес</label>
+                <label className="text-sm text-muted-foreground mb-2 block">
+                  Email адрес
+                </label>
                 <Input
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -131,13 +147,15 @@ export default function ExchangeConfirm() {
                   value={walletAddress}
                   onChange={(e) => setWalletAddress(e.target.value)}
                   className={`bg-input border-border text-foreground ${
-                    walletAddress.length === 0 ? 'border-red-400/50' : ''
+                    walletAddress.length === 0 ? "border-red-400/50" : ""
                   }`}
                   placeholder="TQn9Y2khEsLJW1ChVWFMSMeRDow5KcbLSE"
                   required
                 />
                 {walletAddress.length === 0 && (
-                  <p className="text-red-400 text-xs mt-1">Поле обязательно для заполнения</p>
+                  <p className="text-red-400 text-xs mt-1">
+                    Поле обязательно для заполнения
+                  </p>
                 )}
               </div>
             </div>
@@ -145,8 +163,12 @@ export default function ExchangeConfirm() {
             {/* Agreement */}
             <div className="flex items-start space-x-3 mb-8">
               <input type="checkbox" className="mt-1" id="agreement" />
-              <label htmlFor="agreement" className="text-sm text-muted-foreground leading-relaxed">
-                Я согласен с условиями использования и политикой конфиденциальности
+              <label
+                htmlFor="agreement"
+                className="text-sm text-muted-foreground leading-relaxed"
+              >
+                Я согласен с условиями использования и политикой
+                конфиденциальности
               </label>
             </div>
 
@@ -171,10 +193,12 @@ export default function ExchangeConfirm() {
           {/* Security Notice */}
           <div className="modern-card rounded-3xl p-6 text-center">
             <CheckCircle className="w-8 h-8 text-green-400 mx-auto mb-3" />
-            <h3 className="text-lg font-semibold text-foreground mb-2">Безопасная сделка</h3>
+            <h3 className="text-lg font-semibold text-foreground mb-2">
+              Безопасная сделка
+            </h3>
             <p className="text-muted-foreground text-sm">
-              Все операции ��ащищены банковским шифрованием. 
-              Ваши данные в полной безопасности.
+              Все операции ��ащищены банковским шифрованием. Ваши данные в
+              полной безопасности.
             </p>
           </div>
         </div>
