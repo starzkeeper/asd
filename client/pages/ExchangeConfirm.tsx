@@ -12,12 +12,14 @@ export default function ExchangeConfirm() {
   const [walletAddress, setWalletAddress] = useState("");
   const [fromAmount, setFromAmount] = useState("22000");
   const [toAmount, setToAmount] = useState("46.01");
+  const [exchangeRate, setExchangeRate] = useState<number | null>(null);
 
   useEffect(() => {
     const exchangeData = exchangeStore.getExchangeData();
     if (exchangeData) {
       setFromAmount(exchangeData.fromAmount);
       setToAmount(exchangeData.toAmount);
+      setExchangeRate(exchangeData.effectiveRate || exchangeData.exchangeRate);
       if (exchangeData.email) setEmail(exchangeData.email);
       if (exchangeData.walletAddress)
         setWalletAddress(exchangeData.walletAddress);
@@ -101,7 +103,9 @@ export default function ExchangeConfirm() {
               <div className="grid grid-cols-2 gap-4 text-sm">
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Курс обмена:</span>
-                  <span className="text-foreground">478.50 ₸</span>
+                  <span className="text-foreground">
+                    {exchangeRate ? `${exchangeRate.toFixed(2)} ₸` : "..."}
+                  </span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Комиссия:</span>
@@ -197,7 +201,7 @@ export default function ExchangeConfirm() {
               Безопасная сделка
             </h3>
             <p className="text-muted-foreground text-sm">
-              Все операции ��ащищены банковским шифрованием. Ваши данные в
+              Все операции защищены банковским шифрованием. Ваши данные в
               полной безопасности.
             </p>
           </div>
