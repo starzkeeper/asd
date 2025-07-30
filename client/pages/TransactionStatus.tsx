@@ -137,7 +137,7 @@ export default function TransactionStatus() {
       <main className="container mx-auto px-4 py-8">
         <div className="max-w-2xl mx-auto">
           {/* Success Status */}
-          <div className="card-gradient rounded-2xl p-8 mb-8">
+          <div className="exchange-card rounded-3xl p-8 mb-8">
             <div className="text-center mb-8">
               <CheckCircle className="w-20 h-20 text-green-400 mx-auto mb-4" />
               <h1 className="text-3xl font-bold text-foreground mb-2">
