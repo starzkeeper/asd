@@ -32,7 +32,6 @@ export default function Payment() {
                 <Globe className="w-4 h-4 mr-2" />
                 RU
               </Button>
-              <Button variant="outline" size="sm">Вход</Button>
             </div>
           </div>
         </div>
@@ -126,7 +125,7 @@ export default function Payment() {
                 </div>
                 <div className="flex items-center space-x-2">
                   <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                  <span>Данные не сохраняются</span>
+                  <span>Данные ��е сохраняются</span>
                 </div>
               </div>
             </div>
