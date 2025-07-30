@@ -20,46 +20,37 @@ export default function Index() {
   const [fromAmount, setFromAmount] = useState("22000");
   const [usdtRate, setUsdtRate] = useState<number | null>(null); // KZT per USDT (fetched from Coinbase)
 
-  // Initialize trades with real rate
+  // Calculate effective rate for a given amount
+  const calculateEffectiveRateForAmount = (usdAmount: number, baseRate: number) => {
+    const multiplier = markupMultiplier(usdAmount);
+    return baseRate / multiplier; // lower KZT per 1 USDT (better rate for client)
+  };
+
+  // Initialize trades with effective rates based on amounts
   const initializeTrades = (rate: number) => {
     const now = new Date();
-    return [
-      {
-        id: 1,
-        amount: "1,250.00",
-        rate: rate.toFixed(2),
-        type: "Покупка",
-        time: new Date(now.getTime() - 30000).toLocaleTimeString(),
-      },
-      {
-        id: 2,
-        amount: "850.75",
-        rate: (rate + (Math.random() - 0.5) * 0.2).toFixed(2),
-        type: "Продажа",
-        time: new Date(now.getTime() - 95000).toLocaleTimeString(),
-      },
-      {
-        id: 3,
-        amount: "2,100.00",
-        rate: (rate + (Math.random() - 0.5) * 0.2).toFixed(2),
-        type: "Покупка",
-        time: new Date(now.getTime() - 180000).toLocaleTimeString(),
-      },
-      {
-        id: 4,
-        amount: "675.25",
-        rate: (rate + (Math.random() - 0.5) * 0.2).toFixed(2),
-        type: "Продажа",
-        time: new Date(now.getTime() - 245000).toLocaleTimeString(),
-      },
-      {
-        id: 5,
-        amount: "1,890.50",
-        rate: (rate + (Math.random() - 0.5) * 0.2).toFixed(2),
-        type: "Покупка",
-        time: new Date(now.getTime() - 320000).toLocaleTimeString(),
-      },
+    const trades = [
+      { amount: "1,250.00", time: 30000 },
+      { amount: "850.75", time: 95000 },
+      { amount: "2,100.00", time: 180000 },
+      { amount: "675.25", time: 245000 },
+      { amount: "1,890.50", time: 320000 },
     ];
+
+    return trades.map((trade, index) => {
+      const usdtAmount = parseFloat(trade.amount.replace(',', ''));
+      const usdEquivalent = usdtAmount; // USDT ≈ USD
+      const effectiveRate = calculateEffectiveRateForAmount(usdEquivalent, rate);
+      const variation = (Math.random() - 0.5) * 0.4; // Small random variation
+
+      return {
+        id: index + 1,
+        amount: trade.amount,
+        rate: (effectiveRate + variation).toFixed(2),
+        type: Math.random() > 0.5 ? "Покупка" : "Продажа",
+        time: new Date(now.getTime() - trade.time).toLocaleTimeString(),
+      };
+    });
   };
 
   // Track if trades have been initialized
@@ -207,7 +198,7 @@ export default function Index() {
     {
       name: "Дмитрий С.",
       rating: 5,
-      text: "Лучший обменник криптовалют �� Казахстане. Поддержка всегда готова помочь.",
+      text: "Лучший обменник криптовалют в Казахстане. Поддержка всегда готова помочь.",
     },
   ];
 
