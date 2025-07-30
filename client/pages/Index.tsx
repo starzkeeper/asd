@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Star, Shield, Zap, Users, ArrowRight, Globe } from 'lucide-react';
 import { exchangeStore } from '@/lib/exchangeStore';
+import { Logo } from '@/components/ui/logo';
 
 export default function Index() {
   const navigate = useNavigate();
@@ -135,7 +136,7 @@ export default function Index() {
     {
       name: 'Дмитрий С.',
       rating: 5,
-      text: 'Лучший обменник криптовалют в Казахстане. Поддержка всегда готова помочь.'
+      text: 'Л��чший обменник криптовалют в Казахстане. Поддержка всегда готова помочь.'
     }
   ];
 
@@ -201,7 +202,7 @@ export default function Index() {
               автоматизированному обмену процессу.
             </p>
             <p className="text-primary font-medium mb-8">
-              Самый выгодный курс обмена KZT в Tether USDT
+              Самый выго��ный курс обмена KZT в Tether USDT
             </p>
 
             <div className="card-gradient rounded-2xl p-6 mb-8">
@@ -411,7 +412,7 @@ export default function Index() {
             </div>
 
             <div>
-              <h4 className="font-semibold text-foreground mb-4">Контакт��</h4>
+              <h4 className="font-semibold text-foreground mb-4">Контакты</h4>
               <ul className="space-y-2 text-muted-foreground">
                 <li><a href="https://t.me/Serik_Maksat" className="hover:text-primary transition-colors">@Serik_Maksat</a></li>
                 <li><a href="https://t.me/BelieveredST" className="hover:text-primary transition-colors">@BelieveredST</a></li>
