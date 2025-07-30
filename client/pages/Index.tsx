@@ -96,39 +96,40 @@ export default function Index() {
 
   const [liveTrades, setLiveTrades] = useState(() => {
     const now = new Date();
+    const baseRate = 478.50; // Fallback rate if usdtRate not available yet
     return [
       {
         id: 1,
         amount: "1,250.00",
-        rate: "478.50",
+        rate: baseRate.toFixed(2),
         type: "Покупка",
         time: new Date(now.getTime() - 30000).toLocaleTimeString(),
       },
       {
         id: 2,
         amount: "850.75",
-        rate: "478.52",
+        rate: (baseRate + 0.02).toFixed(2),
         type: "Продажа",
         time: new Date(now.getTime() - 95000).toLocaleTimeString(),
       },
       {
         id: 3,
         amount: "2,100.00",
-        rate: "478.48",
+        rate: (baseRate - 0.02).toFixed(2),
         type: "Покупка",
         time: new Date(now.getTime() - 180000).toLocaleTimeString(),
       },
       {
         id: 4,
         amount: "675.25",
-        rate: "478.51",
+        rate: (baseRate + 0.01).toFixed(2),
         type: "Продажа",
         time: new Date(now.getTime() - 245000).toLocaleTimeString(),
       },
       {
         id: 5,
         amount: "1,890.50",
-        rate: "478.49",
+        rate: (baseRate - 0.01).toFixed(2),
         type: "Покупка",
         time: new Date(now.getTime() - 320000).toLocaleTimeString(),
       },
@@ -251,7 +252,7 @@ export default function Index() {
               <span className="text-foreground">KZT ⟷ USDT</span>
             </h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-              Самые выгодные курсы и мгновенные переводы. Безопасно, надежно,
+              Самые выгодные ��урсы и мгновенные переводы. Безопасно, надежно,
               круглосуточно.
             </p>
           </div>
@@ -503,7 +504,7 @@ export default function Index() {
               </p>
               <p className="text-sm text-muted-foreground">
                 Мы обеспечиваем надежные и быстрые услуги обмена цифровых
-                активов с высочайшим уровнем безопасности.
+                активов с высочайшим ��ровнем безопасности.
               </p>
             </div>
 
