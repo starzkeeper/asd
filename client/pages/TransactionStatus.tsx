@@ -234,15 +234,11 @@ export default function TransactionStatus() {
               Наша служба поддержки работает 24/7 и готова помочь вам в любое время
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <Button variant="outline" size="sm">
-                Написать в Telegram
-              </Button>
-              <Button variant="outline" size="sm">
-                Email поддержка
-              </Button>
-              <Button variant="outline" size="sm">
-                Горячая линия
-              </Button>
+              <a href="https://t.me/Serik_Maksat" target="_blank" rel="noopener noreferrer">
+                <Button variant="outline" size="sm">
+                  Связаться с поддержкой
+                </Button>
+              </a>
             </div>
           </div>
         </div>
