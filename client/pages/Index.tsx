@@ -115,7 +115,7 @@ export default function Index() {
     {
       icon: Users,
       title: 'Удобство',
-      description: 'Простой и интуитивно понятный интерфейс для всех пользователей'
+      description: 'Простой и интуитивно понятн��й интерфейс для всех пользователей'
     }
   ];
 
@@ -181,7 +181,7 @@ export default function Index() {
               <br />
               На нашем сайте вы можете обменять KZT на 
               <br />
-              Казахстанские тенге очень быстро, надежно и
+              Казахстанские тенге очень быстро, над��жно и
               <br />
               ��ыгодно. Процесс обмена не отнимает у
               <br />
@@ -201,9 +201,18 @@ export default function Index() {
                     <div className="flex-1 relative">
                       <Input
                         value={fromAmount}
-                        onChange={(e) => setFromAmount(e.target.value)}
+                        onChange={(e) => {
+                          const value = e.target.value;
+                          const numValue = parseFloat(value) || 0;
+                          if (numValue >= 22000 || value === '') {
+                            setFromAmount(value);
+                          } else if (numValue < 22000 && numValue > 0) {
+                            setFromAmount('22000');
+                          }
+                        }}
                         className="bg-input border-border text-foreground pr-16"
-                        placeholder="1000"
+                        placeholder="22000"
+                        min="22000"
                       />
                       <span className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground">
                         KZT
