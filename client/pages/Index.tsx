@@ -136,7 +136,7 @@ export default function Index() {
     {
       name: 'Дмитрий С.',
       rating: 5,
-      text: 'Л��чший обменник криптовалют в Казахстане. Поддержка всегда готова помочь.'
+      text: 'Лучший обменник криптовалют в Казахстане. Поддержка всегда готова помочь.'
     }
   ];
 
@@ -163,9 +163,7 @@ export default function Index() {
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-                <span className="text-primary-foreground font-bold text-sm">A</span>
-              </div>
+              <Logo />
               <span className="text-xl font-semibold text-foreground">ALMASU</span>
             </div>
             
@@ -202,7 +200,7 @@ export default function Index() {
               автоматизированному обмену процессу.
             </p>
             <p className="text-primary font-medium mb-8">
-              Самый выго��ный курс обмена KZT в Tether USDT
+              Самый выгодный курс обмена KZT в Tether USDT
             </p>
 
             <div className="card-gradient rounded-2xl p-6 mb-8">
