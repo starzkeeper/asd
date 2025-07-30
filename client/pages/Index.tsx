@@ -378,7 +378,7 @@ export default function Index() {
       {/* Footer */}
       <footer className="border-t border-border/20 mt-16">
         <div className="container mx-auto px-4 py-8">
-          <div className="grid md:grid-cols-4 gap-8">
+          <div className="grid md:grid-cols-2 gap-8">
             <div>
               <div className="flex items-center space-x-2 mb-4">
                 <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
@@ -390,31 +390,13 @@ export default function Index() {
                 Ведущая криптовалютная биржа Казахстана
               </p>
             </div>
-            
-            <div>
-              <h4 className="font-semibold text-foreground mb-4">Сервисы</h4>
-              <ul className="space-y-2 text-muted-foreground">
-                <li><a href="#" className="hover:text-primary transition-colors">Обмен криптовалют</a></li>
-                <li><a href="#" className="hover:text-primary transition-colors">P2P торговля</a></li>
-                <li><a href="#" className="hover:text-primary transition-colors">API</a></li>
-              </ul>
-            </div>
-            
-            <div>
-              <h4 className="font-semibold text-foreground mb-4">Поддержка</h4>
-              <ul className="space-y-2 text-muted-foreground">
-                <li><a href="#" className="hover:text-primary transition-colors">Часто задаваемые вопросы</a></li>
-                <li><a href="#" className="hover:text-primary transition-colors">Связаться с нами</a></li>
-                <li><a href="#" className="hover:text-primary transition-colors">Условия использования</a></li>
-              </ul>
-            </div>
-            
+
             <div>
               <h4 className="font-semibold text-foreground mb-4">Контакты</h4>
               <ul className="space-y-2 text-muted-foreground">
-                <li>support@almasu.kz</li>
-                <li>+7 (727) 123-45-67</li>
-                <li>Алматы, Казахстан</li>
+                <li><a href="https://t.me/Serik_Maksat" className="hover:text-primary transition-colors">@Serik_Maksat</a></li>
+                <li><a href="https://t.me/BelieveredST" className="hover:text-primary transition-colors">@BelieveredST</a></li>
+                <li><a href="https://t.me/+lbkM7nFi0VcyMTNi" className="hover:text-primary transition-colors">Telegram группа</a></li>
               </ul>
             </div>
           </div>
