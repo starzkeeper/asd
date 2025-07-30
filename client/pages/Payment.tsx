@@ -1,8 +1,9 @@
-import { useState } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ArrowLeft, Globe, CreditCard, Shield, Clock } from 'lucide-react';
+import { exchangeStore } from '@/lib/exchangeStore';
 
 export default function Payment() {
   const [searchParams] = useSearchParams();
@@ -97,7 +98,7 @@ export default function Payment() {
                     <li>Откройте мобильное приложение вашего банка</li>
                     <li>Выберите "Перевод на карту"</li>
                     <li>Введите номер карты: <span className="text-foreground font-mono">4003035115685047</span></li>
-                    <li>Укажите сумму: <span className="text-foreground font-semibold">{fromAmount} ₸</span></li>
+                    <li>Укажите сумму: <span className="text-foreground font-semibold">{fromAmount} ���</span></li>
                     <li>Подтвердите перевод</li>
                   </ol>
                 </div>
