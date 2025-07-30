@@ -146,7 +146,7 @@ export default function Index() {
     return [];
   });
 
-  const generateRandomTrade = () => {
+  const generateRandomTrade = (currentRate: number) => {
     const amounts = [
       "450.00",
       "1,250.75",
@@ -159,8 +159,6 @@ export default function Index() {
     ];
     const types = ["Покупка", "Продажа"];
 
-    // Use real USDT rate with effective bonus calculation
-    const baseRate = usdtRate || 478.5;
     const selectedAmount = amounts[Math.floor(Math.random() * amounts.length)];
     const usdtAmount = parseFloat(selectedAmount.replace(",", ""));
     const usdEquivalent = usdtAmount; // USDT ≈ USD
@@ -168,7 +166,7 @@ export default function Index() {
     // Calculate effective rate with bonus for this amount
     const effectiveRate = calculateEffectiveRateForAmount(
       usdEquivalent,
-      baseRate,
+      currentRate,
     );
     const variation = (Math.random() - 0.5) * 0.4; // ±0.2 variation for market spread
     const tradeRate = effectiveRate + variation;
@@ -182,22 +180,29 @@ export default function Index() {
     };
   };
 
+  // Schedule continual live trades that are always based on the latest usdtRate
   useEffect(() => {
-    const scheduleNextTrade = () => {
-      const randomDelay = Math.random() * (13000 - 5000) + 5000; // 5-13 seconds
+    if (!usdtRate) return; // wait until we have a real rate
 
-      setTimeout(() => {
-        setLiveTrades((prevTrades) => {
-          const newTrade = generateRandomTrade();
-          const updatedTrades = [newTrade, ...prevTrades.slice(0, 4)];
-          return updatedTrades;
+    let timeoutId: NodeJS.Timeout;
+
+    const scheduleNextTrade = () => {
+      const randomDelay = Math.random() * (13000 - 5000) + 5000; // 5‑13 seconds
+
+      timeoutId = setTimeout(() => {
+        setLiveTrades(prev => {
+          const newTrade = generateRandomTrade(usdtRate);
+          return [newTrade, ...prev.slice(0, 4)]; // keep max 5 trades
         });
-        scheduleNextTrade(); // Schedule next trade
+        scheduleNextTrade(); // recurse
       }, randomDelay);
     };
 
     scheduleNextTrade();
-  }, []);
+
+    // cleanup on rate change / unmount
+    return () => clearTimeout(timeoutId);
+  }, [usdtRate]);
 
   const testimonials = [
     {
@@ -518,26 +523,18 @@ export default function Index() {
           <h2 className="text-3xl font-bold text-foreground text-center mb-12">
             Наши партнеры
           </h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 items-center justify-items-center">
-            <div className="modern-card rounded-2xl p-6 w-full h-24 flex items-center justify-center group hover:scale-105 transition-transform">
-              <div className="text-2xl font-bold text-primary/80 group-hover:text-primary transition-colors">
-                BINANCE
-              </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-0.5 md:gap-1 place-items-center justify-center">
+            <div className="flex items-center justify-center">
+              <img src="/Huobi-logo.png" alt="Huobi" className="h-14 w-32 object-contain" />
             </div>
-            <div className="modern-card rounded-2xl p-6 w-full h-24 flex items-center justify-center group hover:scale-105 transition-transform">
-              <div className="text-2xl font-bold text-primary/80 group-hover:text-primary transition-colors">
-                BYBIT
-              </div>
+            <div className="flex items-center justify-center">
+              <img src="/Binance.png" alt="Binance" className="h-14 w-32 object-contain" />
             </div>
-            <div className="modern-card rounded-2xl p-6 w-full h-24 flex items-center justify-center group hover:scale-105 transition-transform">
-              <div className="text-2xl font-bold text-primary/80 group-hover:text-primary transition-colors">
-                KUCOIN
-              </div>
+            <div className="flex items-center justify-center">
+              <img src="/Bybit-logo_(cropped).png" alt="Bybit" className="h-14 w-32 object-contain" />
             </div>
-            <div className="modern-card rounded-2xl p-6 w-full h-24 flex items-center justify-center group hover:scale-105 transition-transform">
-              <div className="text-2xl font-bold text-primary/80 group-hover:text-primary transition-colors">
-                HUOBI
-              </div>
+            <div className="flex items-center justify-center">
+              <img src="/KuCoin-logo.png" alt="KuCoin" className="h-16 w-36 object-contain" />
             </div>
           </div>
         </section>

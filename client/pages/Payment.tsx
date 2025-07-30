@@ -98,7 +98,7 @@ export default function Payment() {
                 <div className="bg-background/50 rounded-xl p-4 mb-4">
                   <div className="text-center mb-4">
                     <div className="text-3xl font-bold text-foreground tracking-wider">
-                      4003035115685047
+                      4003 0351 1568 5047
                     </div>
                     <div className="text-sm text-muted-foreground mt-2">
                       Номер карты для перевода
@@ -131,7 +131,7 @@ export default function Payment() {
                     <li>
                       Введите номер карты:{" "}
                       <span className="text-foreground font-mono">
-                        4003035115685047
+                        4003 0351 1568 5047
                       </span>
                     </li>
                     <li>
