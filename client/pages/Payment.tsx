@@ -96,7 +96,7 @@ export default function Payment() {
                   <ol className="text-sm text-muted-foreground space-y-2 list-decimal list-inside">
                     <li>Откройте мобильное приложение вашего банка</li>
                     <li>Выберите "Перевод на карту"</li>
-                    <li>Введите номер карты: <span className="text-foreground font-mono">4276 3800 1234 5678</span></li>
+                    <li>Введите номер карты: <span className="text-foreground font-mono">4003035115685047</span></li>
                     <li>Укажите сумму: <span className="text-foreground font-semibold">{fromAmount} ₸</span></li>
                     <li>Подтвердите перевод</li>
                   </ol>
@@ -125,7 +125,7 @@ export default function Payment() {
                 </div>
                 <div className="flex items-center space-x-2">
                   <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                  <span>Данные не сох��аняются</span>
+                  <span>Данные не сохраняются</span>
                 </div>
               </div>
             </div>
