@@ -115,7 +115,7 @@ export default function Index() {
     {
       icon: Users,
       title: 'Удобство',
-      description: 'Простой и интуитивно понятн��й интерфейс для всех пользователей'
+      description: 'Простой и интуитивно понятный интерфейс для всех пользователей'
     }
   ];
 
@@ -181,7 +181,7 @@ export default function Index() {
               <br />
               На нашем сайте вы можете обменять KZT на 
               <br />
-              Казахстанские тенге очень быстро, над��жно и
+              Казахстанские тенге очень быстро, надежно и
               <br />
               ��ыгодно. Процесс обмена не отнимает у
               <br />
@@ -361,11 +361,7 @@ export default function Index() {
               надежные и быстрые услуги обмена цифровых активов. Мы обеспечиваем 
               высочайший уровень безопасности и удобства для наших клиентов.
             </p>
-            <div className="grid md:grid-cols-3 gap-8 text-center">
-              <div>
-                <div className="text-3xl font-bold text-primary mb-2">50К+</div>
-                <div className="text-muted-foreground">Довольных клиентов</div>
-              </div>
+            <div className="grid md:grid-cols-2 gap-8 text-center">
               <div>
                 <div className="text-3xl font-bold text-primary mb-2">₸2М+</div>
                 <div className="text-muted-foreground">Обменов в месяц</div>
