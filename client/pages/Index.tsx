@@ -67,7 +67,7 @@ export default function Index() {
     return [
       { id: 1, amount: '1,250.00', rate: '478.50', type: 'Покупка', time: new Date(now.getTime() - 30000).toLocaleTimeString() },
       { id: 2, amount: '850.75', rate: '478.52', type: 'Продажа', time: new Date(now.getTime() - 95000).toLocaleTimeString() },
-      { id: 3, amount: '2,100.00', rate: '478.48', type: 'Поку��ка', time: new Date(now.getTime() - 180000).toLocaleTimeString() },
+      { id: 3, amount: '2,100.00', rate: '478.48', type: 'Покупка', time: new Date(now.getTime() - 180000).toLocaleTimeString() },
       { id: 4, amount: '675.25', rate: '478.51', type: 'Продажа', time: new Date(now.getTime() - 245000).toLocaleTimeString() },
       { id: 5, amount: '1,890.50', rate: '478.49', type: 'Покупка', time: new Date(now.getTime() - 320000).toLocaleTimeString() },
     ];
@@ -131,7 +131,7 @@ export default function Index() {
     {
       name: 'Мария П.',
       rating: 5,
-      text: 'Пользуюсь уже полгода, все операции проходят без проблем. Рекомендую!'
+      text: 'Пользуюсь уже полгода, все опер��ции проходят без проблем. Рекомендую!'
     },
     {
       name: 'Дмитрий С.',
@@ -252,7 +252,7 @@ export default function Index() {
             </div>
           </div>
 
-          <div className="space-y-8">
+          <div>
             {/* Live USDT Trades */}
             <div className="card-gradient rounded-2xl p-6">
               <div className="flex items-center justify-between mb-4">
@@ -312,7 +312,7 @@ export default function Index() {
 
             {/* Partners */}
             <div className="mb-12">
-              <h3 className="text-xl font-semibold text-foreground mb-6">��аши партнеры</h3>
+              <h3 className="text-xl font-semibold text-foreground mb-6">Наши партнеры</h3>
               <div className="flex justify-center items-center space-x-8">
                 {[1, 2, 3, 4].map((index) => (
                   <div key={index} className="flex items-center justify-center w-16 h-16 bg-primary/10 border-2 border-dashed border-primary/30 rounded-xl">
@@ -367,8 +367,8 @@ export default function Index() {
           <div className="max-w-3xl mx-auto">
             <p className="text-muted-foreground leading-relaxed mb-6">
               ALMASU - ведущий обменник криптовалюты в Казахстане, предоставляющий
-              надежные и быстрые услуги обмена цифровых активов. Мы обеспечиваем
-              высочайший уровень безопаснос��и и удобства для наших клиентов.
+              надежные и б��стрые услуги обмена цифровых активов. Мы обеспечиваем
+              высочайший уровень безопасности и удобства для наших клиентов.
             </p>
             <div className="grid md:grid-cols-2 gap-8 text-center">
               <div>
@@ -394,7 +394,7 @@ export default function Index() {
                 <span className="text-xl font-semibold text-foreground">ALMASU</span>
               </div>
               <p className="text-muted-foreground">
-                Ведущий обменник криптовалюты
+                Ве��ущий обменник криптовалюты
               </p>
             </div>
 
