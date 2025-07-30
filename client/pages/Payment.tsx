@@ -157,7 +157,7 @@ export default function Payment() {
               onClick={handlePaymentConfirm}
               className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-medium py-4 text-lg"
             >
-              Я перевел {fromAmount} ₸
+              Я отправил деньги {fromAmount} ₸
             </Button>
           </div>
 
