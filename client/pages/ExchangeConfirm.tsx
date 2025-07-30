@@ -148,14 +148,12 @@ export default function ExchangeConfirm() {
 
             {/* Confirm Button */}
             {walletAddress.trim() ? (
-              <Link
-                to={`/payment?from=${fromAmount}&to=${toAmount}&email=${email}&wallet=${walletAddress}`}
-                className="block"
+              <Button
+                onClick={handleConfirm}
+                className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-medium py-4 text-lg"
               >
-                <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-medium py-4 text-lg">
-                  Подтвердить обмен
-                </Button>
-              </Link>
+                Подтвердить обмен
+              </Button>
             ) : (
               <Button
                 disabled
