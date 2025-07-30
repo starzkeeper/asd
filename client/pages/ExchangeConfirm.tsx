@@ -169,7 +169,7 @@ export default function ExchangeConfirm() {
           </div>
 
           {/* Security Notice */}
-          <div className="card-gradient rounded-xl p-6 text-center">
+          <div className="modern-card rounded-3xl p-6 text-center">
             <CheckCircle className="w-8 h-8 text-green-400 mx-auto mb-3" />
             <h3 className="text-lg font-semibold text-foreground mb-2">Безопасная сделка</h3>
             <p className="text-muted-foreground text-sm">
