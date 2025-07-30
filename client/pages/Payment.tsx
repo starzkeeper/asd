@@ -6,10 +6,26 @@ import { ArrowLeft, Globe, CreditCard, Shield, Clock } from 'lucide-react';
 import { exchangeStore } from '@/lib/exchangeStore';
 
 export default function Payment() {
-  const [searchParams] = useSearchParams();
-  const fromAmount = searchParams.get('from') || '1000';
-  const toAmount = searchParams.get('to') || '2.09';
-  const email = searchParams.get('email') || '';
+  const navigate = useNavigate();
+  const [fromAmount, setFromAmount] = useState('22000');
+  const [toAmount, setToAmount] = useState('46.01');
+  const [email, setEmail] = useState('');
+
+  useEffect(() => {
+    const exchangeData = exchangeStore.getExchangeData();
+    if (exchangeData) {
+      setFromAmount(exchangeData.fromAmount);
+      setToAmount(exchangeData.toAmount);
+      setEmail(exchangeData.email || '');
+    } else {
+      // Redirect to homepage if no exchange data
+      navigate('/');
+    }
+  }, [navigate]);
+
+  const handlePaymentConfirm = () => {
+    navigate('/transaction-status');
+  };
   
 
 
@@ -98,7 +114,7 @@ export default function Payment() {
                     <li>Откройте мобильное приложение вашего банка</li>
                     <li>Выберите "Перевод на карту"</li>
                     <li>Введите номер карты: <span className="text-foreground font-mono">4003035115685047</span></li>
-                    <li>Укажите сумму: <span className="text-foreground font-semibold">{fromAmount} ���</span></li>
+                    <li>Укажите сумму: <span className="text-foreground font-semibold">{fromAmount} ₸</span></li>
                     <li>Подтвердите перевод</li>
                   </ol>
                 </div>
