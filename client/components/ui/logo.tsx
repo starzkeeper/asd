@@ -21,7 +21,11 @@ export function Logo({ className, size = "md" }: LogoProps) {
       )}
     >
       {/* Logo placeholder - replace this with actual logo image */}
-      <span className="text-primary-foreground font-bold text-sm">A</span>
+      <img 
+            src="/photo_2025-07-30_19-22-05.jpg" 
+            alt="ALMASU Logo" 
+            className="w-full h-full object-contain"
+          />
 
       {/* To use a custom logo image, replace the span above with:
           <img 

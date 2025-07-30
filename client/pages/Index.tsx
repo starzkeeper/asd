@@ -18,59 +18,80 @@ import { Logo } from "@/components/ui/logo";
 export default function Index() {
   const navigate = useNavigate();
   const [fromAmount, setFromAmount] = useState("22000");
-  const [usdtRate, setUsdtRate] = useState(478.5); // KZT per USDT
+  const [usdtRate, setUsdtRate] = useState<number | null>(null); // KZT per USDT (fetched from Coinbase)
 
   // Fetch real USDT rate from API
   useEffect(() => {
     const fetchUsdtRate = async () => {
       try {
-        // Using CoinGecko API to get USDT price in USD, then convert to KZT
+        // Request USDT → KZT rate directly from Coinbase
         const response = await fetch(
-          "https://api.coingecko.com/api/v3/simple/price?ids=tether&vs_currencies=usd",
+          "https://api.coinbase.com/v2/exchange-rates?currency=USDT",
         );
-        const data = await response.json();
-        const usdtPriceInUsd = data.tether.usd;
+        const json = await response.json();
+        const kztString = json?.data?.rates?.KZT;         // e.g. "478.12"
+        const kztNumber = Number(kztString);
 
-        // Approximate KZT/USD rate (you could also fetch this from another API)
-        const kztPerUsd = 478.5;
-        const kztPerUsdt = kztPerUsd * usdtPriceInUsd;
-
-        setUsdtRate(kztPerUsdt);
+        if (!Number.isNaN(kztNumber) && kztNumber > 0) {
+          setUsdtRate(kztNumber);
+        }
       } catch (error) {
-        console.error("Failed to fetch USDT rate:", error);
-        // Keep default rate if API fails
+        console.error("Failed to fetch USDT/KZT rate:", error);
+        // keep previous usdtRate (null or last successful)
       }
     };
 
     fetchUsdtRate();
     // Refresh rate every 30 seconds
-    const interval = setInterval(fetchUsdtRate, 30000);
+    const interval = setInterval(fetchUsdtRate, 300000);
     return () => clearInterval(interval);
   }, []);
 
+  // Helper: bonus multiplier by USD tiers
+  const markupMultiplier = (usd: number): number => {
+    if (usd <= 1000)   return 1.02;   // +2%
+    if (usd <= 3000)   return 1.022;  // +2.2%
+    if (usd <= 5000)   return 1.023;  // +2.3%
+    if (usd <= 10000)  return 1.025;  // +2.5%
+    return 1.025;                     // > 10 000 USD
+  };
+
   // Calculate USDT amount with beneficial rate structure
+  // Calculate how many USDT the client receives (with bonus)
   const toAmount = useMemo(() => {
+    if (!usdtRate) return "…";
+
     const kztAmount = parseFloat(fromAmount) || 0;
-    const usdAmount = kztAmount / 478.5; // Convert to USD for percentage calculation
+    const usdAmount = kztAmount / usdtRate;        // ≈ USD
+    const multiplier = markupMultiplier(usdAmount);
 
-    // Determine bonus percentage based on USD amount (user gets MORE)
-    let bonusPercent = 0;
-    if (usdAmount <= 1000) {
-      bonusPercent = 2;
-    } else if (usdAmount <= 3000) {
-      bonusPercent = 2.2;
-    } else if (usdAmount <= 5000) {
-      bonusPercent = 2.3;
-    } else if (usdAmount <= 10000) {
-      bonusPercent = 2.5;
-    } else {
-      bonusPercent = 2.5; // For amounts over $10,000
-    }
+    const baseUsdt    = kztAmount / usdtRate;
+    const finalUsdt   = baseUsdt * multiplier;
 
-    // Calculate USDT amount with bonus rate (user gets MORE USDT)
-    const baseUsdtAmount = kztAmount / usdtRate;
-    const finalAmount = baseUsdtAmount * (1 + bonusPercent / 100);
-    return finalAmount.toFixed(2);
+    return finalUsdt.toFixed(2);
+  }, [fromAmount, usdtRate]);
+
+  // Effective rate after applying bonus (shown in UI)
+  const effectiveRate = useMemo(() => {
+    if (!usdtRate) return null;
+
+    const kztAmount = parseFloat(fromAmount) || 0;
+    const usdAmount = kztAmount / usdtRate;
+    const multiplier = markupMultiplier(usdAmount);
+
+    return usdtRate / multiplier;                 // lower KZT per 1 USDT
+  }, [fromAmount, usdtRate]);
+
+  // Percentage deduction to display next to the received amount
+  const deductionPercent = useMemo(() => {
+    if (!usdtRate) return null;
+
+    const kztAmount = parseFloat(fromAmount) || 0;
+    const usdAmount = kztAmount / usdtRate;
+    const multiplier = markupMultiplier(usdAmount);          // 1.02 … 1.025
+    const percent = (multiplier - 1) * 100;                  // 2 … 2.5
+
+    return percent.toFixed(1).replace(/\.0$/, '');
   }, [fromAmount, usdtRate]);
 
   const [liveTrades, setLiveTrades] = useState(() => {
@@ -305,6 +326,9 @@ export default function Index() {
                     <div className="relative">
                       <div className="bg-background/30 border border-border/50 text-foreground h-14 px-4 py-2 rounded-md pr-20 flex items-center text-lg font-bold text-green-400">
                         {toAmount || "0.00"}
+                        {deductionPercent && (
+                          <span className="text-sm text-green-500 ml-2">(+{deductionPercent}%)</span>
+                        )}
                       </div>
                       <span className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground font-medium">
                         USDT
@@ -312,7 +336,7 @@ export default function Index() {
                     </div>
                   </div>
 
-                  {parseFloat(fromAmount) >= 22000 ? (
+                  {parseFloat(fromAmount) >= 22000 && usdtRate ? (
                     <Button
                       onClick={handleExchange}
                       className="w-full bg-gradient-to-r from-primary to-yellow-400 hover:from-primary/90 hover:to-yellow-400/90 text-black font-bold py-4 text-lg rounded-xl h-auto shadow-lg shadow-primary/25"
@@ -334,9 +358,12 @@ export default function Index() {
                     </div>
                   )}
 
-                  <div className="text-center text-sm text-muted-foreground">
-                    Курс: 1 USDT = {usdtRate.toFixed(2)} KZT
-                  </div>
+                  <ul className="text-sm text-muted-foreground space-y-1 mt-4 list-disc list-inside">
+                    <li>До 1000&nbsp;$&nbsp;&nbsp;<span className="text-green-500">+2%</span></li>
+                    <li>От 1000$ до 3000$&nbsp;&nbsp;<span className="text-green-500">+2,2%</span></li>
+                    <li>От 3000$ до 5000$&nbsp;&nbsp;<span className="text-green-500">+2,3%</span></li>
+                    <li>От 5000$ до 10&nbsp;000$&nbsp;&nbsp;<span className="text-green-500">+2,5%</span></li>
+                  </ul>
                 </div>
               </div>
             </div>
