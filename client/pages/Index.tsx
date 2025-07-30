@@ -53,7 +53,7 @@ export default function Index() {
     if (usd <= 3000)   return 1.022;  // +2.2%
     if (usd <= 5000)   return 1.023;  // +2.3%
     if (usd <= 10000)  return 1.025;  // +2.5%
-    return 1.025;                     // > 10 000 USD
+    return 1.025;                     // > 10 000 USD
   };
 
   // Calculate USDT amount with beneficial rate structure
@@ -79,7 +79,7 @@ export default function Index() {
     const usdAmount = kztAmount / usdtRate;
     const multiplier = markupMultiplier(usdAmount);
 
-    return usdtRate / multiplier;                 // lower KZT per 1 USDT
+    return usdtRate / multiplier;                 // lower KZT per 1 USDT
   }, [fromAmount, usdtRate]);
 
   // Percentage deduction to display next to the received amount
@@ -206,6 +206,7 @@ export default function Index() {
       fromAmount,
       toAmount,
       exchangeRate: usdtRate,
+      effectiveRate: effectiveRate,
     });
     navigate("/exchange-confirm");
   };
@@ -453,6 +454,35 @@ export default function Index() {
                 </p>
               </div>
             ))}
+          </div>
+        </section>
+
+        {/* Partners */}
+        <section className="mb-20">
+          <h2 className="text-3xl font-bold text-foreground text-center mb-12">
+            Наши партнеры
+          </h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 items-center justify-items-center">
+            <div className="modern-card rounded-2xl p-6 w-full h-24 flex items-center justify-center group hover:scale-105 transition-transform">
+              <div className="text-2xl font-bold text-primary/80 group-hover:text-primary transition-colors">
+                BINANCE
+              </div>
+            </div>
+            <div className="modern-card rounded-2xl p-6 w-full h-24 flex items-center justify-center group hover:scale-105 transition-transform">
+              <div className="text-2xl font-bold text-primary/80 group-hover:text-primary transition-colors">
+                BYBIT
+              </div>
+            </div>
+            <div className="modern-card rounded-2xl p-6 w-full h-24 flex items-center justify-center group hover:scale-105 transition-transform">
+              <div className="text-2xl font-bold text-primary/80 group-hover:text-primary transition-colors">
+                KUCOIN
+              </div>
+            </div>
+            <div className="modern-card rounded-2xl p-6 w-full h-24 flex items-center justify-center group hover:scale-105 transition-transform">
+              <div className="text-2xl font-bold text-primary/80 group-hover:text-primary transition-colors">
+                HUOBI
+              </div>
+            </div>
           </div>
         </section>
       </main>
