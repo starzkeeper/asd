@@ -5,6 +5,7 @@ export interface ExchangeData {
   email?: string;
   walletAddress?: string;
   exchangeRate: number;
+  effectiveRate?: number;
 }
 
 class ExchangeStore {

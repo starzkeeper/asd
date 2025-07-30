@@ -20,6 +20,48 @@ export default function Index() {
   const [fromAmount, setFromAmount] = useState("22000");
   const [usdtRate, setUsdtRate] = useState<number | null>(null); // KZT per USDT (fetched from Coinbase)
 
+  // Calculate effective rate for a given amount
+  const calculateEffectiveRateForAmount = (
+    usdAmount: number,
+    baseRate: number,
+  ) => {
+    const multiplier = markupMultiplier(usdAmount);
+    return baseRate / multiplier; // lower KZT per 1 USDT (better rate for client)
+  };
+
+  // Initialize trades with effective rates based on amounts
+  const initializeTrades = (rate: number) => {
+    const now = new Date();
+    const trades = [
+      { amount: "1,250.00", time: 30000 },
+      { amount: "850.75", time: 95000 },
+      { amount: "2,100.00", time: 180000 },
+      { amount: "675.25", time: 245000 },
+      { amount: "1,890.50", time: 320000 },
+    ];
+
+    return trades.map((trade, index) => {
+      const usdtAmount = parseFloat(trade.amount.replace(",", ""));
+      const usdEquivalent = usdtAmount; // USDT ≈ USD
+      const effectiveRate = calculateEffectiveRateForAmount(
+        usdEquivalent,
+        rate,
+      );
+      const variation = (Math.random() - 0.5) * 0.4; // Small random variation
+
+      return {
+        id: index + 1,
+        amount: trade.amount,
+        rate: (effectiveRate + variation).toFixed(2),
+        type: Math.random() > 0.5 ? "Покупка" : "Продажа",
+        time: new Date(now.getTime() - trade.time).toLocaleTimeString(),
+      };
+    });
+  };
+
+  // Track if trades have been initialized
+  const [tradesInitialized, setTradesInitialized] = useState(false);
+
   // Fetch real USDT rate from API
   useEffect(() => {
     const fetchUsdtRate = async () => {
@@ -29,11 +71,16 @@ export default function Index() {
           "https://api.coinbase.com/v2/exchange-rates?currency=USDT",
         );
         const json = await response.json();
-        const kztString = json?.data?.rates?.KZT;         // e.g. "478.12"
+        const kztString = json?.data?.rates?.KZT; // e.g. "478.12"
         const kztNumber = Number(kztString);
 
         if (!Number.isNaN(kztNumber) && kztNumber > 0) {
           setUsdtRate(kztNumber);
+          // Initialize trades with real rate if this is the first load
+          if (!tradesInitialized) {
+            setLiveTrades(initializeTrades(kztNumber));
+            setTradesInitialized(true);
+          }
         }
       } catch (error) {
         console.error("Failed to fetch USDT/KZT rate:", error);
@@ -45,15 +92,15 @@ export default function Index() {
     // Refresh rate every 30 seconds
     const interval = setInterval(fetchUsdtRate, 300000);
     return () => clearInterval(interval);
-  }, []);
+  }, [tradesInitialized]);
 
   // Helper: bonus multiplier by USD tiers
   const markupMultiplier = (usd: number): number => {
-    if (usd <= 1000)   return 1.02;   // +2%
-    if (usd <= 3000)   return 1.022;  // +2.2%
-    if (usd <= 5000)   return 1.023;  // +2.3%
-    if (usd <= 10000)  return 1.025;  // +2.5%
-    return 1.025;                     // > 10 000 USD
+    if (usd <= 1000) return 1.02; // +2%
+    if (usd <= 3000) return 1.022; // +2.2%
+    if (usd <= 5000) return 1.023; // +2.3%
+    if (usd <= 10000) return 1.025; // +2.5%
+    return 1.025; // > 10 000 USD
   };
 
   // Calculate USDT amount with beneficial rate structure
@@ -62,11 +109,11 @@ export default function Index() {
     if (!usdtRate) return "…";
 
     const kztAmount = parseFloat(fromAmount) || 0;
-    const usdAmount = kztAmount / usdtRate;        // ≈ USD
+    const usdAmount = kztAmount / usdtRate; // ≈ USD
     const multiplier = markupMultiplier(usdAmount);
 
-    const baseUsdt    = kztAmount / usdtRate;
-    const finalUsdt   = baseUsdt * multiplier;
+    const baseUsdt = kztAmount / usdtRate;
+    const finalUsdt = baseUsdt * multiplier;
 
     return finalUsdt.toFixed(2);
   }, [fromAmount, usdtRate]);
@@ -79,7 +126,7 @@ export default function Index() {
     const usdAmount = kztAmount / usdtRate;
     const multiplier = markupMultiplier(usdAmount);
 
-    return usdtRate / multiplier;                 // lower KZT per 1 USDT
+    return usdtRate / multiplier; // lower KZT per 1 USDT
   }, [fromAmount, usdtRate]);
 
   // Percentage deduction to display next to the received amount
@@ -88,51 +135,15 @@ export default function Index() {
 
     const kztAmount = parseFloat(fromAmount) || 0;
     const usdAmount = kztAmount / usdtRate;
-    const multiplier = markupMultiplier(usdAmount);          // 1.02 … 1.025
-    const percent = (multiplier - 1) * 100;                  // 2 … 2.5
+    const multiplier = markupMultiplier(usdAmount); // 1.02 … 1.025
+    const percent = (multiplier - 1) * 100; // 2 … 2.5
 
-    return percent.toFixed(1).replace(/\.0$/, '');
+    return percent.toFixed(1).replace(/\.0$/, "");
   }, [fromAmount, usdtRate]);
 
   const [liveTrades, setLiveTrades] = useState(() => {
     const now = new Date();
-    return [
-      {
-        id: 1,
-        amount: "1,250.00",
-        rate: "478.50",
-        type: "Покупка",
-        time: new Date(now.getTime() - 30000).toLocaleTimeString(),
-      },
-      {
-        id: 2,
-        amount: "850.75",
-        rate: "478.52",
-        type: "Продажа",
-        time: new Date(now.getTime() - 95000).toLocaleTimeString(),
-      },
-      {
-        id: 3,
-        amount: "2,100.00",
-        rate: "478.48",
-        type: "Покупка",
-        time: new Date(now.getTime() - 180000).toLocaleTimeString(),
-      },
-      {
-        id: 4,
-        amount: "675.25",
-        rate: "478.51",
-        type: "Продажа",
-        time: new Date(now.getTime() - 245000).toLocaleTimeString(),
-      },
-      {
-        id: 5,
-        amount: "1,890.50",
-        rate: "478.49",
-        type: "Покупка",
-        time: new Date(now.getTime() - 320000).toLocaleTimeString(),
-      },
-    ];
+    return [];
   });
 
   const generateRandomTrade = () => {
@@ -146,21 +157,26 @@ export default function Index() {
       "925.75",
       "1,680.00",
     ];
-    const rates = [
-      "478.48",
-      "478.49",
-      "478.50",
-      "478.51",
-      "478.52",
-      "478.47",
-      "478.53",
-    ];
     const types = ["Покупка", "Продажа"];
+
+    // Use real USDT rate with effective bonus calculation
+    const baseRate = usdtRate || 478.5;
+    const selectedAmount = amounts[Math.floor(Math.random() * amounts.length)];
+    const usdtAmount = parseFloat(selectedAmount.replace(",", ""));
+    const usdEquivalent = usdtAmount; // USDT ≈ USD
+
+    // Calculate effective rate with bonus for this amount
+    const effectiveRate = calculateEffectiveRateForAmount(
+      usdEquivalent,
+      baseRate,
+    );
+    const variation = (Math.random() - 0.5) * 0.4; // ±0.2 variation for market spread
+    const tradeRate = effectiveRate + variation;
 
     return {
       id: Date.now() + Math.random(),
-      amount: amounts[Math.floor(Math.random() * amounts.length)],
-      rate: rates[Math.floor(Math.random() * rates.length)],
+      amount: selectedAmount,
+      rate: tradeRate.toFixed(2),
       type: types[Math.floor(Math.random() * types.length)],
       time: new Date().toLocaleTimeString(),
     };
@@ -206,6 +222,7 @@ export default function Index() {
       fromAmount,
       toAmount,
       exchangeRate: usdtRate,
+      effectiveRate: effectiveRate,
     });
     navigate("/exchange-confirm");
   };
@@ -327,7 +344,9 @@ export default function Index() {
                       <div className="bg-background/30 border border-border/50 text-foreground h-14 px-4 py-2 rounded-md pr-20 flex items-center text-lg font-bold text-green-400">
                         {toAmount || "0.00"}
                         {deductionPercent && (
-                          <span className="text-sm text-green-500 ml-2">(+{deductionPercent}%)</span>
+                          <span className="text-sm text-green-500 ml-2">
+                            (+{deductionPercent}%)
+                          </span>
                         )}
                       </div>
                       <span className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground font-medium">
@@ -358,11 +377,49 @@ export default function Index() {
                     </div>
                   )}
 
+                  <div className="mt-6 p-4 bg-background/30 rounded-xl border border-primary/20">
+                    <div className="flex justify-between items-center mb-3">
+                      <span className="text-sm text-muted-foreground">
+                        Текущий курс USDT:
+                      </span>
+                      <span className="font-medium text-foreground">
+                        {usdtRate
+                          ? `${usdtRate.toFixed(2)} ₸`
+                          : "Загружается..."}
+                      </span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-muted-foreground">
+                        Ваш курс с бонусом:
+                      </span>
+                      <span className="font-bold text-primary">
+                        {effectiveRate ? `${effectiveRate.toFixed(2)} ₸` : "—"}
+                        {deductionPercent && (
+                          <span className="text-sm text-green-500 ml-2">
+                            (+{deductionPercent}%)
+                          </span>
+                        )}
+                      </span>
+                    </div>
+                  </div>
+
                   <ul className="text-sm text-muted-foreground space-y-1 mt-4 list-disc list-inside">
-                    <li>До 1000&nbsp;$&nbsp;&nbsp;<span className="text-green-500">+2%</span></li>
-                    <li>От 1000$ до 3000$&nbsp;&nbsp;<span className="text-green-500">+2,2%</span></li>
-                    <li>От 3000$ до 5000$&nbsp;&nbsp;<span className="text-green-500">+2,3%</span></li>
-                    <li>От 5000$ до 10&nbsp;000$&nbsp;&nbsp;<span className="text-green-500">+2,5%</span></li>
+                    <li>
+                      До 1000&nbsp;$&nbsp;&nbsp;
+                      <span className="text-green-500">+2%</span>
+                    </li>
+                    <li>
+                      От 1000$ до 3000$&nbsp;&nbsp;
+                      <span className="text-green-500">+2,2%</span>
+                    </li>
+                    <li>
+                      От 3000$ до 5000$&nbsp;&nbsp;
+                      <span className="text-green-500">+2,3%</span>
+                    </li>
+                    <li>
+                      От 5000$ до 10&nbsp;000$&nbsp;&nbsp;
+                      <span className="text-green-500">+2,5%</span>
+                    </li>
                   </ul>
                 </div>
               </div>
@@ -453,6 +510,35 @@ export default function Index() {
                 </p>
               </div>
             ))}
+          </div>
+        </section>
+
+        {/* Partners */}
+        <section className="mb-20">
+          <h2 className="text-3xl font-bold text-foreground text-center mb-12">
+            Наши партнеры
+          </h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 items-center justify-items-center">
+            <div className="modern-card rounded-2xl p-6 w-full h-24 flex items-center justify-center group hover:scale-105 transition-transform">
+              <div className="text-2xl font-bold text-primary/80 group-hover:text-primary transition-colors">
+                BINANCE
+              </div>
+            </div>
+            <div className="modern-card rounded-2xl p-6 w-full h-24 flex items-center justify-center group hover:scale-105 transition-transform">
+              <div className="text-2xl font-bold text-primary/80 group-hover:text-primary transition-colors">
+                BYBIT
+              </div>
+            </div>
+            <div className="modern-card rounded-2xl p-6 w-full h-24 flex items-center justify-center group hover:scale-105 transition-transform">
+              <div className="text-2xl font-bold text-primary/80 group-hover:text-primary transition-colors">
+                KUCOIN
+              </div>
+            </div>
+            <div className="modern-card rounded-2xl p-6 w-full h-24 flex items-center justify-center group hover:scale-105 transition-transform">
+              <div className="text-2xl font-bold text-primary/80 group-hover:text-primary transition-colors">
+                HUOBI
+              </div>
+            </div>
           </div>
         </section>
       </main>
