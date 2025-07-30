@@ -69,7 +69,7 @@ export default function ExchangeConfirm() {
           </Link>
 
           {/* Exchange Confirmation */}
-          <div className="card-gradient rounded-2xl p-8 mb-8">
+          <div className="exchange-card rounded-3xl p-8 mb-8">
             <h1 className="text-3xl font-bold text-foreground mb-8 text-center">
               Подтверждение обмена
             </h1>
@@ -173,7 +173,7 @@ export default function ExchangeConfirm() {
             <CheckCircle className="w-8 h-8 text-green-400 mx-auto mb-3" />
             <h3 className="text-lg font-semibold text-foreground mb-2">Безопасная сделка</h3>
             <p className="text-muted-foreground text-sm">
-              Все опе��ации ��ащищены банковским шифрованием. 
+              Все операции ��ащищены банковским шифрованием. 
               Ваши данные в полной безопасности.
             </p>
           </div>
