@@ -1,23 +1,45 @@
-import { useState, useEffect } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
-import { CheckCircle, Clock, Globe, Copy, Download, ArrowRight } from 'lucide-react';
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import {
+  CheckCircle,
+  Clock,
+  Globe,
+  Copy,
+  Download,
+  ArrowRight,
+} from "lucide-react";
+import { exchangeStore } from "@/lib/exchangeStore";
+import { Logo } from "@/components/ui/logo";
 
 export default function TransactionStatus() {
-  const [searchParams] = useSearchParams();
-  const fromAmount = searchParams.get('from') || '1000';
-  const toAmount = searchParams.get('to') || '2.09';
-  const email = searchParams.get('email') || '';
-  
-  const [status, setStatus] = useState<'processing' | 'completed'>('processing');
+  const navigate = useNavigate();
+  const [fromAmount, setFromAmount] = useState("22000");
+  const [toAmount, setToAmount] = useState("46.01");
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState<"processing" | "completed">(
+    "processing",
+  );
   const [progress, setProgress] = useState(0);
-  
+
+  useEffect(() => {
+    const exchangeData = exchangeStore.getExchangeData();
+    if (exchangeData) {
+      setFromAmount(exchangeData.fromAmount);
+      setToAmount(exchangeData.toAmount);
+      setEmail(exchangeData.email || "");
+    } else {
+      // Redirect to homepage if no exchange data
+      navigate("/");
+    }
+  }, [navigate]);
+
   // Simulate transaction processing
   useEffect(() => {
     const timer = setInterval(() => {
-      setProgress(prev => {
+      setProgress((prev) => {
         if (prev >= 100) {
-          setStatus('completed');
+          setStatus("completed");
           clearInterval(timer);
           return 100;
         }
@@ -35,26 +57,30 @@ export default function TransactionStatus() {
     navigator.clipboard.writeText(text);
   };
 
-  if (status === 'processing') {
+  if (status === "processing") {
     return (
       <div className="min-h-screen crypto-gradient">
         {/* Header */}
-        <header className="border-b border-border/20 backdrop-blur-sm">
-          <div className="container mx-auto px-4 py-4">
+        <header className="relative z-10">
+          <div className="container mx-auto px-4 py-6">
             <div className="flex items-center justify-between">
-              <Link to="/" className="flex items-center space-x-2">
-                <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-                  <span className="text-primary-foreground font-bold text-sm">A</span>
+              <Link to="/" className="flex items-center space-x-3">
+                <Logo size="lg" />
+                <div>
+                  <span className="text-2xl font-bold bg-gradient-to-r from-primary to-yellow-400 bg-clip-text text-transparent">
+                    ALMASU
+                  </span>
+                  <div className="text-xs text-muted-foreground">
+                    Обменник криптовалюты
+                  </div>
                 </div>
-                <span className="text-xl font-semibold text-foreground">ALMASU</span>
               </Link>
 
-              <div className="flex items-center space-x-4">
-                <Button variant="ghost" size="sm" className="text-foreground">
-                  <Globe className="w-4 h-4 mr-2" />
-                  RU
-                </Button>
-                <Button variant="outline" size="sm">Вход</Button>
+              <div className="modern-card px-3 py-2 rounded-full">
+                <div className="flex items-center space-x-2 text-sm">
+                  <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                  <span className="text-foreground">Онлайн</span>
+                </div>
               </div>
             </div>
           </div>
@@ -62,7 +88,7 @@ export default function TransactionStatus() {
 
         <main className="container mx-auto px-4 py-8">
           <div className="max-w-2xl mx-auto">
-            <div className="card-gradient rounded-2xl p-8 text-center">
+            <div className="exchange-card rounded-3xl p-8 text-center">
               <div className="flex items-center justify-center mb-8">
                 <Clock className="w-16 h-16 text-primary animate-spin" />
               </div>
@@ -70,14 +96,15 @@ export default function TransactionStatus() {
               <h1 className="text-3xl font-bold text-foreground mb-4">
                 Обработка транзакции
               </h1>
-              
+
               <p className="text-muted-foreground mb-8">
-                Ваш платеж обрабатывается. Пожалуйста, не закрывайте эту страницу.
+                Ваш платеж обрабатывается. Пожалуйста, не закрывайте эту
+                страницу.
               </p>
 
               {/* Progress Bar */}
               <div className="w-full bg-background/30 rounded-full h-3 mb-8">
-                <div 
+                <div
                   className="bg-primary h-3 rounded-full transition-all duration-500"
                   style={{ width: `${progress}%` }}
                 ></div>
@@ -96,22 +123,26 @@ export default function TransactionStatus() {
   return (
     <div className="min-h-screen crypto-gradient">
       {/* Header */}
-      <header className="border-b border-border/20 backdrop-blur-sm">
-        <div className="container mx-auto px-4 py-4">
+      <header className="relative z-10">
+        <div className="container mx-auto px-4 py-6">
           <div className="flex items-center justify-between">
-            <Link to="/" className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-                <span className="text-primary-foreground font-bold text-sm">A</span>
+            <Link to="/" className="flex items-center space-x-3">
+              <Logo size="lg" />
+              <div>
+                <span className="text-2xl font-bold bg-gradient-to-r from-primary to-yellow-400 bg-clip-text text-transparent">
+                  ALMASU
+                </span>
+                <div className="text-xs text-muted-foreground">
+                  Обменник криптовалюты
+                </div>
               </div>
-              <span className="text-xl font-semibold text-foreground">ALMASU</span>
             </Link>
 
-            <div className="flex items-center space-x-4">
-              <Button variant="ghost" size="sm" className="text-foreground">
-                <Globe className="w-4 h-4 mr-2" />
-                RU
-              </Button>
-              <Button variant="outline" size="sm">Вход</Button>
+            <div className="modern-card px-3 py-2 rounded-full">
+              <div className="flex items-center space-x-2 text-sm">
+                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                <span className="text-foreground">Онлайн</span>
+              </div>
             </div>
           </div>
         </div>
@@ -120,7 +151,7 @@ export default function TransactionStatus() {
       <main className="container mx-auto px-4 py-8">
         <div className="max-w-2xl mx-auto">
           {/* Success Status */}
-          <div className="card-gradient rounded-2xl p-8 mb-8">
+          <div className="exchange-card rounded-3xl p-8 mb-8">
             <div className="text-center mb-8">
               <CheckCircle className="w-20 h-20 text-green-400 mx-auto mb-4" />
               <h1 className="text-3xl font-bold text-foreground mb-2">
@@ -136,12 +167,16 @@ export default function TransactionStatus() {
               <div className="flex items-center justify-between p-4 bg-background/50 rounded-xl">
                 <div>
                   <div className="text-sm text-muted-foreground">Отдали</div>
-                  <div className="text-xl font-bold text-foreground">{fromAmount} KZT</div>
+                  <div className="text-xl font-bold text-foreground">
+                    {fromAmount} KZT
+                  </div>
                 </div>
                 <ArrowRight className="w-6 h-6 text-primary" />
                 <div className="text-right">
                   <div className="text-sm text-muted-foreground">Получили</div>
-                  <div className="text-xl font-bold text-green-400">{toAmount} USDT</div>
+                  <div className="text-xl font-bold text-green-400">
+                    {toAmount} USDT
+                  </div>
                 </div>
               </div>
 
@@ -150,10 +185,12 @@ export default function TransactionStatus() {
                 <div className="flex justify-between items-center p-3 bg-background/30 rounded-lg">
                   <span className="text-muted-foreground">ID транзакции:</span>
                   <div className="flex items-center space-x-2">
-                    <span className="text-foreground font-mono">{transactionId}</span>
-                    <Button 
-                      size="sm" 
-                      variant="ghost" 
+                    <span className="text-foreground font-mono">
+                      {transactionId}
+                    </span>
+                    <Button
+                      size="sm"
+                      variant="ghost"
                       onClick={() => copyToClipboard(transactionId)}
                       className="p-1 h-auto"
                     >
@@ -164,7 +201,9 @@ export default function TransactionStatus() {
 
                 <div className="flex justify-between items-center p-3 bg-background/30 rounded-lg">
                   <span className="text-muted-foreground">Дата и время:</span>
-                  <span className="text-foreground">{new Date().toLocaleString('ru-RU')}</span>
+                  <span className="text-foreground">
+                    {new Date().toLocaleString("ru-RU")}
+                  </span>
                 </div>
 
                 <div className="flex justify-between items-center p-3 bg-background/30 rounded-lg">
@@ -181,15 +220,17 @@ export default function TransactionStatus() {
               {/* USDT Wallet Address */}
               <div className="bg-green-400/10 border border-green-400/20 rounded-xl p-4">
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-green-400 font-medium">USDT отправлены на ваш кошелек:</span>
+                  <span className="text-green-400 font-medium">
+                    USDT отправлены на ваш кошелек:
+                  </span>
                 </div>
                 <div className="flex items-center space-x-2">
                   <code className="flex-1 text-foreground bg-background/50 p-2 rounded text-sm font-mono break-all">
                     {walletAddress}
                   </code>
-                  <Button 
-                    size="sm" 
-                    variant="ghost" 
+                  <Button
+                    size="sm"
+                    variant="ghost"
                     onClick={() => copyToClipboard(walletAddress)}
                     className="shrink-0"
                   >
@@ -219,23 +260,24 @@ export default function TransactionStatus() {
           </div>
 
           {/* Support */}
-          <div className="card-gradient rounded-xl p-6 text-center">
+          <div className="modern-card rounded-3xl p-6 text-center">
             <h3 className="text-lg font-semibold text-foreground mb-2">
               Нужна помощь?
             </h3>
             <p className="text-muted-foreground text-sm mb-4">
-              Наша служба поддержки работает 24/7 и готова помочь вам в любое время
+              Наша служба поддержки работает 24/7 и готова помочь вам в любое
+              время
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <Button variant="outline" size="sm">
-                Написать в Telegram
-              </Button>
-              <Button variant="outline" size="sm">
-                Email поддержка
-              </Button>
-              <Button variant="outline" size="sm">
-                Горячая линия
-              </Button>
+              <a
+                href="https://t.me/Serik_Maksat"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Button variant="outline" size="sm">
+                  Связаться с поддержкой
+                </Button>
+              </a>
             </div>
           </div>
         </div>
