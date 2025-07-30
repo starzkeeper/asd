@@ -96,44 +96,7 @@ export default function Index() {
 
   const [liveTrades, setLiveTrades] = useState(() => {
     const now = new Date();
-    const baseRate = 478.50; // Fallback rate if usdtRate not available yet
-    return [
-      {
-        id: 1,
-        amount: "1,250.00",
-        rate: baseRate.toFixed(2),
-        type: "Покупка",
-        time: new Date(now.getTime() - 30000).toLocaleTimeString(),
-      },
-      {
-        id: 2,
-        amount: "850.75",
-        rate: (baseRate + 0.02).toFixed(2),
-        type: "Продажа",
-        time: new Date(now.getTime() - 95000).toLocaleTimeString(),
-      },
-      {
-        id: 3,
-        amount: "2,100.00",
-        rate: (baseRate - 0.02).toFixed(2),
-        type: "Покупка",
-        time: new Date(now.getTime() - 180000).toLocaleTimeString(),
-      },
-      {
-        id: 4,
-        amount: "675.25",
-        rate: (baseRate + 0.01).toFixed(2),
-        type: "Продажа",
-        time: new Date(now.getTime() - 245000).toLocaleTimeString(),
-      },
-      {
-        id: 5,
-        amount: "1,890.50",
-        rate: (baseRate - 0.01).toFixed(2),
-        type: "Покупка",
-        time: new Date(now.getTime() - 320000).toLocaleTimeString(),
-      },
-    ];
+    return [];
   });
 
   const generateRandomTrade = () => {
@@ -475,7 +438,7 @@ export default function Index() {
         {/* Partners */}
         <section className="mb-20">
           <h2 className="text-3xl font-bold text-foreground text-center mb-12">
-            Наши ��артнеры
+            Наши партнеры
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 items-center justify-items-center">
             <div className="modern-card rounded-2xl p-6 w-full h-24 flex items-center justify-center group hover:scale-105 transition-transform">
