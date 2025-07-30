@@ -62,6 +62,9 @@ export default function Index() {
     ];
   };
 
+  // Track if trades have been initialized
+  const [tradesInitialized, setTradesInitialized] = useState(false);
+
   // Fetch real USDT rate from API
   useEffect(() => {
     const fetchUsdtRate = async () => {
@@ -77,8 +80,9 @@ export default function Index() {
         if (!Number.isNaN(kztNumber) && kztNumber > 0) {
           setUsdtRate(kztNumber);
           // Initialize trades with real rate if this is the first load
-          if (liveTrades.length === 0) {
+          if (!tradesInitialized) {
             setLiveTrades(initializeTrades(kztNumber));
+            setTradesInitialized(true);
           }
         }
       } catch (error) {
@@ -91,7 +95,7 @@ export default function Index() {
     // Refresh rate every 30 seconds
     const interval = setInterval(fetchUsdtRate, 300000);
     return () => clearInterval(interval);
-  }, [liveTrades.length]);
+  }, [tradesInitialized]);
 
   // Helper: bonus multiplier by USD tiers
   const markupMultiplier = (usd: number): number => {
@@ -203,7 +207,7 @@ export default function Index() {
     {
       name: "Дмитрий С.",
       rating: 5,
-      text: "Лучший обменник криптовалют в Казахстане. Поддержка всегда готова помочь.",
+      text: "Лучший обменник криптовалют �� Казахстане. Поддержка всегда готова помочь.",
     },
   ];
 
