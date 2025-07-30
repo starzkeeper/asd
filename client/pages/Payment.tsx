@@ -74,7 +74,7 @@ export default function Payment() {
                 <div className="bg-background/50 rounded-xl p-4 mb-4">
                   <div className="text-center mb-4">
                     <div className="text-3xl font-bold text-foreground tracking-wider">
-                      4276 3800 1234 5678
+                      4003035115685047
                     </div>
                     <div className="text-sm text-muted-foreground mt-2">Номер карты для перевода</div>
                   </div>
@@ -82,11 +82,11 @@ export default function Payment() {
                   <div className="grid grid-cols-2 gap-4 text-sm">
                     <div>
                       <span className="text-muted-foreground">Получатель:</span>
-                      <div className="text-foreground font-medium">ALMASU LLP</div>
+                      <div className="text-foreground font-medium">Sadykov Bekzat</div>
                     </div>
                     <div>
                       <span className="text-muted-foreground">Банк:</span>
-                      <div className="text-foreground font-medium">Kaspi Bank</div>
+                      <div className="text-foreground font-medium">Halyk Bank</div>
                     </div>
                   </div>
                 </div>
@@ -125,7 +125,7 @@ export default function Payment() {
                 </div>
                 <div className="flex items-center space-x-2">
                   <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                  <span>Данные ��е сохраняются</span>
+                  <span>Данные не сох��аняются</span>
                 </div>
               </div>
             </div>
