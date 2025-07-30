@@ -159,21 +159,12 @@ export default function Index() {
   return (
     <div className="min-h-screen crypto-gradient">
       {/* Header */}
-      <header className="border-b border-border/20 backdrop-blur-sm">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
+      <header className="py-4">
+        <div className="container mx-auto px-4">
+          <div className="flex items-center justify-center">
             <div className="flex items-center space-x-2">
               <Logo />
               <span className="text-xl font-semibold text-foreground">ALMASU</span>
-            </div>
-            
-
-
-            <div className="flex items-center space-x-4">
-              <Button variant="ghost" size="sm" className="text-foreground">
-                <Globe className="w-4 h-4 mr-2" />
-                RU
-              </Button>
             </div>
           </div>
         </div>
