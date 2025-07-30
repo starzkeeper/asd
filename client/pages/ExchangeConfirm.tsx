@@ -30,7 +30,6 @@ export default function ExchangeConfirm() {
                 <Globe className="w-4 h-4 mr-2" />
                 RU
               </Button>
-              <Button variant="outline" size="sm">Вход</Button>
             </div>
           </div>
         </div>
