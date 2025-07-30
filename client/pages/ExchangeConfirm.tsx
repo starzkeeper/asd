@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ArrowLeft, ArrowRight, Globe, CheckCircle } from 'lucide-react';
 import { exchangeStore } from '@/lib/exchangeStore';
+import { Logo } from '@/components/ui/logo';
 
 export default function ExchangeConfirm() {
   const navigate = useNavigate();
