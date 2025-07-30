@@ -5,7 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Star, Shield, Zap, Users, ArrowRight, Globe } from 'lucide-react';
 
 export default function Index() {
-  const [fromAmount, setFromAmount] = useState('1000');
+  const [fromAmount, setFromAmount] = useState('22000');
   const [usdtRate, setUsdtRate] = useState(478.5); // KZT per USDT
 
   // Fetch real USDT rate from API
@@ -62,7 +62,7 @@ export default function Index() {
   const [liveTrades, setLiveTrades] = useState(() => {
     const now = new Date();
     return [
-      { id: 1, amount: '1,250.00', rate: '478.50', type: 'Покуп��а', time: new Date(now.getTime() - 30000).toLocaleTimeString() },
+      { id: 1, amount: '1,250.00', rate: '478.50', type: 'Покупка', time: new Date(now.getTime() - 30000).toLocaleTimeString() },
       { id: 2, amount: '850.75', rate: '478.52', type: 'Продажа', time: new Date(now.getTime() - 95000).toLocaleTimeString() },
       { id: 3, amount: '2,100.00', rate: '478.48', type: 'Покупка', time: new Date(now.getTime() - 180000).toLocaleTimeString() },
       { id: 4, amount: '675.25', rate: '478.51', type: 'Продажа', time: new Date(now.getTime() - 245000).toLocaleTimeString() },
