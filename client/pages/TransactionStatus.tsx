@@ -56,9 +56,7 @@ export default function TransactionStatus() {
           <div className="container mx-auto px-4 py-4">
             <div className="flex items-center justify-between">
               <Link to="/" className="flex items-center space-x-2">
-                <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-                  <span className="text-primary-foreground font-bold text-sm">A</span>
-                </div>
+                <Logo />
                 <span className="text-xl font-semibold text-foreground">ALMASU</span>
               </Link>
 
