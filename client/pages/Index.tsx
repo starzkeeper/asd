@@ -126,7 +126,7 @@ export default function Index() {
     {
       name: 'Александр К.',
       rating: 5,
-      text: 'Отличный сервис для обмена криптовалют. Быстро, надежно и с хорошими курса��и.'
+      text: 'Отличный сервис ��ля обмена криптовалют. Быстро, надежно и с хорошими курса��и.'
     },
     {
       name: 'Мария П.',
@@ -182,24 +182,48 @@ export default function Index() {
         </div>
       </header>
 
-      <main className="container mx-auto px-4 py-8 space-y-16">
-        {/* Exchange Section */}
-        <section>
-          <div className="text-center mb-12">
-            <h1 className="text-4xl lg:text-5xl font-bold text-foreground mb-6">
-              Конвертация KZT в Tether USDT
+      <main className="container mx-auto px-4 py-12">
+        {/* Hero Section */}
+        <section className="text-center mb-16">
+          <div className="mb-8">
+            <h1 className="text-5xl lg:text-6xl font-bold mb-6">
+              <span className="bg-gradient-to-r from-white via-yellow-100 to-primary bg-clip-text text-transparent">
+                Быстрый обмен
+              </span>
+              <br />
+              <span className="text-foreground">KZT ⟷ USDT</span>
             </h1>
-            <p className="text-muted-foreground text-lg mb-6 leading-relaxed max-w-3xl mx-auto">
-              Сдела��те быстрый обмен криптовалюты Tether USDT. На нашем сайте вы можете обменять KZT на
-              Казахстанские тенге очень быстро, надежно и ��ыгодно. Процесс обмена не отнимает у
-              вас много времени благодаря а����томатизированному обмену процессу.
-            </p>
-            <p className="text-primary font-medium">
-              Самый выгодный курс обмена KZT в Tether USDT
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+              ��амые выгодные курсы и мгновенные переводы.
+              Безопасно, надежно, круглосуточно.
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-12 items-start">
+          <div className="flex flex-wrap justify-center gap-6 mb-12">
+            <div className="modern-card px-6 py-3 rounded-full">
+              <div className="flex items-center space-x-2">
+                <Shield className="w-5 h-5 text-green-400" />
+                <span className="text-sm font-medium">Банковская безопасность</span>
+              </div>
+            </div>
+            <div className="modern-card px-6 py-3 rounded-full">
+              <div className="flex items-center space-x-2">
+                <Zap className="w-5 h-5 text-yellow-400" />
+                <span className="text-sm font-medium">Мгновенно</span>
+              </div>
+            </div>
+            <div className="modern-card px-6 py-3 rounded-full">
+              <div className="flex items-center space-x-2">
+                <Users className="w-5 h-5 text-blue-400" />
+                <span className="text-sm font-medium">24/7 поддержка</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Exchange Section */}
+        <section className="mb-20">
+          <div className="grid lg:grid-cols-5 gap-8 items-start">
               <div className="space-y-4">
                 <div>
                   <label className="text-sm text-muted-foreground mb-2 block">Отдаете</label>
