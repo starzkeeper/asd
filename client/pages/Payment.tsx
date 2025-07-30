@@ -35,19 +35,24 @@ export default function Payment() {
   return (
     <div className="min-h-screen crypto-gradient">
       {/* Header */}
-      <header className="border-b border-border/20 backdrop-blur-sm">
-        <div className="container mx-auto px-4 py-4">
+      <header className="relative z-10">
+        <div className="container mx-auto px-4 py-6">
           <div className="flex items-center justify-between">
-            <Link to="/" className="flex items-center space-x-2">
-              <Logo />
-              <span className="text-xl font-semibold text-foreground">ALMASU</span>
+            <Link to="/" className="flex items-center space-x-3">
+              <Logo size="lg" />
+              <div>
+                <span className="text-2xl font-bold bg-gradient-to-r from-primary to-yellow-400 bg-clip-text text-transparent">
+                  ALMASU
+                </span>
+                <div className="text-xs text-muted-foreground">Обменник криптовалюты</div>
+              </div>
             </Link>
 
-            <div className="flex items-center space-x-4">
-              <Button variant="ghost" size="sm" className="text-foreground">
-                <Globe className="w-4 h-4 mr-2" />
-                RU
-              </Button>
+            <div className="modern-card px-3 py-2 rounded-full">
+              <div className="flex items-center space-x-2 text-sm">
+                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                <span className="text-foreground">Онлайн</span>
+              </div>
             </div>
           </div>
         </div>
