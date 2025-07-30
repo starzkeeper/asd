@@ -154,14 +154,12 @@ export default function Payment() {
             </div>
 
             {/* Pay Button */}
-            <Link 
-              to={`/transaction-status?from=${fromAmount}&to=${toAmount}&email=${email}`}
-              className="block"
+            <Button
+              onClick={handlePaymentConfirm}
+              className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-medium py-4 text-lg"
             >
-              <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-medium py-4 text-lg">
               Я перевел {fromAmount} ₸
             </Button>
-            </Link>
           </div>
 
           {/* Support */}
