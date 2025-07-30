@@ -146,6 +146,15 @@ export default function Index() {
     { name: 'QIWI', logo: 'Q' }
   ];
 
+  const handleExchange = () => {
+    exchangeStore.setExchangeData({
+      fromAmount,
+      toAmount,
+      exchangeRate: usdtRate
+    });
+    navigate('/exchange-confirm');
+  };
+
   return (
     <div className="min-h-screen crypto-gradient">
       {/* Header */}
