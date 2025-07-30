@@ -6,6 +6,7 @@ import { Star, Shield, Zap, Users, ArrowRight, Globe } from 'lucide-react';
 import { exchangeStore } from '@/lib/exchangeStore';
 
 export default function Index() {
+  const navigate = useNavigate();
   const [fromAmount, setFromAmount] = useState('22000');
   const [usdtRate, setUsdtRate] = useState(478.5); // KZT per USDT
 
