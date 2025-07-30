@@ -67,7 +67,7 @@ export default function Payment() {
           </Link>
 
           {/* Payment Form */}
-          <div className="card-gradient rounded-2xl p-8 mb-8">
+          <div className="exchange-card rounded-3xl p-8 mb-8">
             <div className="flex items-center justify-center mb-8">
               <CreditCard className="w-8 h-8 text-primary mr-3" />
               <h1 className="text-3xl font-bold text-foreground">Оплата</h1>
