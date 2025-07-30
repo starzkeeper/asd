@@ -54,7 +54,6 @@ export default function TransactionStatus() {
                   <Globe className="w-4 h-4 mr-2" />
                   RU
                 </Button>
-                <Button variant="outline" size="sm">Вход</Button>
               </div>
             </div>
           </div>
@@ -124,7 +123,7 @@ export default function TransactionStatus() {
             <div className="text-center mb-8">
               <CheckCircle className="w-20 h-20 text-green-400 mx-auto mb-4" />
               <h1 className="text-3xl font-bold text-foreground mb-2">
-                Транзакция завершена!
+                Транзакция за��ершена!
               </h1>
               <p className="text-muted-foreground">
                 Ваш обмен успешно выполнен
