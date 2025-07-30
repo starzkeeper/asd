@@ -188,7 +188,7 @@ export default function Index() {
               <br />
               вас много времени благодаря
               <br />
-              автоматизированному обмену процессу.
+              а��томатизированному обмену процессу.
             </p>
             <p className="text-primary font-medium mb-8">
               Самый выгодный курс обмена KZT в Tether USDT
@@ -338,7 +338,7 @@ export default function Index() {
               }}
               className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3 font-medium"
             >
-              ПЕРЕ��ТИ К ОБМЕНУ
+              ПЕРЕЙТИ К ОБМЕНУ
             </Button>
           </div>
         </section>
@@ -366,8 +366,8 @@ export default function Index() {
           <h2 className="text-3xl font-bold text-foreground mb-6">О Нас</h2>
           <div className="max-w-3xl mx-auto">
             <p className="text-muted-foreground leading-relaxed mb-6">
-              ALMASU - ведущая криптовалютная биржа в Казахстане, предоставляющая 
-              надежные и быстрые услуги обмена цифровых активов. Мы обеспечиваем 
+              ALMASU - ведущий обменник криптовалюты в Казахстане, предоставляющий
+              надежные и быстрые услуги обмена цифровых активов. Мы обеспечиваем
               высочайший уровень безопасности и удобства для наших клиентов.
             </p>
             <div className="grid md:grid-cols-2 gap-8 text-center">
