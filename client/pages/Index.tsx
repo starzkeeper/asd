@@ -62,7 +62,7 @@ export default function Index() {
   const [liveTrades, setLiveTrades] = useState(() => {
     const now = new Date();
     return [
-      { id: 1, amount: '1,250.00', rate: '478.50', type: 'Покупка', time: new Date(now.getTime() - 30000).toLocaleTimeString() },
+      { id: 1, amount: '1,250.00', rate: '478.50', type: 'Покуп��а', time: new Date(now.getTime() - 30000).toLocaleTimeString() },
       { id: 2, amount: '850.75', rate: '478.52', type: 'Продажа', time: new Date(now.getTime() - 95000).toLocaleTimeString() },
       { id: 3, amount: '2,100.00', rate: '478.48', type: 'Покупка', time: new Date(now.getTime() - 180000).toLocaleTimeString() },
       { id: 4, amount: '675.25', rate: '478.51', type: 'Продажа', time: new Date(now.getTime() - 245000).toLocaleTimeString() },
@@ -164,7 +164,6 @@ export default function Index() {
                 <Globe className="w-4 h-4 mr-2" />
                 RU
               </Button>
-              <Button variant="outline" size="sm">Вход</Button>
             </div>
           </div>
         </div>
