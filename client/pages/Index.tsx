@@ -106,7 +106,7 @@ export default function Index() {
 
   const testimonials = [
     {
-      name: 'А��ександр К.',
+      name: 'Александр К.',
       rating: 5,
       text: 'Отличный сервис для обмена криптовалют. Быстро, надежно и с хорошими курсами.'
     },
@@ -242,12 +242,27 @@ export default function Index() {
                     </div>
                   </div>
 
-                  <Button 
-                    onClick={handleExchange}
-                    className="w-full bg-gradient-to-r from-primary to-yellow-400 hover:from-primary/90 hover:to-yellow-400/90 text-black font-bold py-4 text-lg rounded-xl h-auto shadow-lg shadow-primary/25"
-                  >
-                    НАЧАТЬ ОБМЕН
-                  </Button>
+                  {parseFloat(fromAmount) >= 22000 ? (
+                    <Button
+                      onClick={handleExchange}
+                      className="w-full bg-gradient-to-r from-primary to-yellow-400 hover:from-primary/90 hover:to-yellow-400/90 text-black font-bold py-4 text-lg rounded-xl h-auto shadow-lg shadow-primary/25"
+                    >
+                      НАЧАТЬ ОБМЕН
+                    </Button>
+                  ) : (
+                    <Button
+                      disabled
+                      className="w-full bg-muted text-muted-foreground font-bold py-4 text-lg rounded-xl h-auto cursor-not-allowed"
+                    >
+                      НАЧАТЬ ОБМЕН
+                    </Button>
+                  )}
+
+                  {parseFloat(fromAmount) < 22000 && fromAmount !== '' && (
+                    <div className="text-center text-sm text-red-400">
+                      Минимальная сумма для обмена: 22,000 KZT
+                    </div>
+                  )}
 
                   <div className="text-center text-sm text-muted-foreground">
                     Курс: 1 USDT = {usdtRate.toFixed(2)} KZT
