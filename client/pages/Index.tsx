@@ -352,9 +352,27 @@ export default function Index() {
 
                   {parseFloat(fromAmount) < 22000 && fromAmount !== "" && (
                     <div className="text-center text-sm text-red-400">
-                      Минимальная сумма для ��бмена: 22,000 KZT
+                      Минимальная сумма для обмена: 22,000 KZT
                     </div>
                   )}
+
+                  <div className="mt-6 p-4 bg-background/30 rounded-xl border border-primary/20">
+                    <div className="flex justify-between items-center mb-3">
+                      <span className="text-sm text-muted-foreground">Текущий курс USDT:</span>
+                      <span className="font-medium text-foreground">
+                        {usdtRate ? `${usdtRate.toFixed(2)} ₸` : "Загружается..."}
+                      </span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-muted-foreground">Ваш курс с бонусом:</span>
+                      <span className="font-bold text-primary">
+                        {effectiveRate ? `${effectiveRate.toFixed(2)} ₸` : "—"}
+                        {deductionPercent && (
+                          <span className="text-sm text-green-500 ml-2">(+{deductionPercent}%)</span>
+                        )}
+                      </span>
+                    </div>
+                  </div>
 
                   <ul className="text-sm text-muted-foreground space-y-1 mt-4 list-disc list-inside">
                     <li>До 1000&nbsp;$&nbsp;&nbsp;<span className="text-green-500">+2%</span></li>
@@ -457,7 +475,7 @@ export default function Index() {
         {/* Partners */}
         <section className="mb-20">
           <h2 className="text-3xl font-bold text-foreground text-center mb-12">
-            Наши партнеры
+            Наши ��артнеры
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 items-center justify-items-center">
             <div className="modern-card rounded-2xl p-6 w-full h-24 flex items-center justify-center group hover:scale-105 transition-transform">
