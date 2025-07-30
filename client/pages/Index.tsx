@@ -1,8 +1,9 @@
 import { useState, useEffect, useMemo } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Star, Shield, Zap, Users, ArrowRight, Globe } from 'lucide-react';
+import { exchangeStore } from '@/lib/exchangeStore';
 
 export default function Index() {
   const [fromAmount, setFromAmount] = useState('22000');
