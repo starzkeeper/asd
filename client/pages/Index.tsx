@@ -147,21 +147,17 @@ export default function Index() {
       "925.75",
       "1,680.00",
     ];
-    const rates = [
-      "478.48",
-      "478.49",
-      "478.50",
-      "478.51",
-      "478.52",
-      "478.47",
-      "478.53",
-    ];
     const types = ["Покупка", "Продажа"];
+
+    // Use real USDT rate with small random variations
+    const baseRate = usdtRate || 478.50;
+    const variation = (Math.random() - 0.5) * 0.1; // ±0.05 variation
+    const tradeRate = baseRate + variation;
 
     return {
       id: Date.now() + Math.random(),
       amount: amounts[Math.floor(Math.random() * amounts.length)],
-      rate: rates[Math.floor(Math.random() * rates.length)],
+      rate: tradeRate.toFixed(2),
       type: types[Math.floor(Math.random() * types.length)],
       time: new Date().toLocaleTimeString(),
     };
@@ -252,7 +248,7 @@ export default function Index() {
               <span className="text-foreground">KZT ⟷ USDT</span>
             </h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-              Самые выгодные ��урсы и мгновенные переводы. Безопасно, надежно,
+              Самые выгодные курсы и мгновенные переводы. Безопасно, надежно,
               круглосуточно.
             </p>
           </div>
@@ -356,7 +352,7 @@ export default function Index() {
 
                   {parseFloat(fromAmount) < 22000 && fromAmount !== "" && (
                     <div className="text-center text-sm text-red-400">
-                      Минимальная сумма для обмена: 22,000 KZT
+                      Минимальная сумма для ��бмена: 22,000 KZT
                     </div>
                   )}
 
@@ -504,7 +500,7 @@ export default function Index() {
               </p>
               <p className="text-sm text-muted-foreground">
                 Мы обеспечиваем надежные и быстрые услуги обмена цифровых
-                активов с высочайшим ��ровнем безопасности.
+                активов с высочайшим уровнем безопасности.
               </p>
             </div>
 
