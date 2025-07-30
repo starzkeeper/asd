@@ -106,14 +106,14 @@ export default function Index() {
 
   const testimonials = [
     {
-      name: 'Александр К.',
+      name: 'А��ександр К.',
       rating: 5,
       text: 'Отличный сервис для обмена криптовалют. Быстро, надежно и с хорошими курсами.'
     },
     {
       name: 'Мария П.',
       rating: 5,
-      text: 'Пользуюсь уже полгода, все операции проходят без проблем. Реко��ендую!'
+      text: 'Пользуюсь уже полгода, все операции проходят без проблем. Рекомендую!'
     },
     {
       name: 'Дмитрий С.',
@@ -204,7 +204,7 @@ export default function Index() {
               <div className="exchange-card rounded-3xl p-8">
                 <div className="text-center mb-8">
                   <h2 className="text-2xl font-bold text-foreground mb-2">Обмен валют</h2>
-                  <p className="text-muted-foreground">Введ��те сумму для расчета курса</p>
+                  <p className="text-muted-foreground">Введите сумму для расчета курса</p>
                 </div>
                 
                 <div className="space-y-6">
@@ -213,18 +213,10 @@ export default function Index() {
                     <div className="relative">
                       <Input
                         value={fromAmount}
-                        onChange={(e) => {
-                          const value = e.target.value;
-                          const numValue = parseFloat(value) || 0;
-                          if (numValue >= 22000 || value === '') {
-                            setFromAmount(value);
-                          } else if (numValue < 22000 && numValue > 0) {
-                            setFromAmount('22000');
-                          }
-                        }}
+                        onChange={(e) => setFromAmount(e.target.value)}
                         className="bg-background/50 border-border/50 text-foreground pr-16 h-14 text-lg font-medium"
                         placeholder="22000"
-                        min="22000"
+                        type="number"
                       />
                       <span className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground font-medium">
                         KZT
