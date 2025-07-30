@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Star, Shield, Zap, Users, ArrowRight, Globe } from 'lucide-react';
+import { Star, Shield, Zap, Users, ArrowRight, Globe, TrendingUp, Clock } from 'lucide-react';
 import { exchangeStore } from '@/lib/exchangeStore';
 import { Logo } from '@/components/ui/logo';
 
@@ -104,47 +104,22 @@ export default function Index() {
     scheduleNextTrade();
   }, []);
 
-  const features = [
-    {
-      icon: Shield,
-      title: 'Безопасность',
-      description: 'Банковская безопасность и современные методы шифрования данных'
-    },
-    {
-      icon: Zap,
-      title: 'Скорость',
-      description: 'Мгновенные операции и быстрые переводы средств'
-    },
-    {
-      icon: Users,
-      title: 'Удобство',
-      description: 'Простой и интуитивно понятный интерфейс для всех пользователей'
-    }
-  ];
-
   const testimonials = [
     {
       name: 'Александр К.',
       rating: 5,
-      text: 'Отличный сервис ��ля обмена криптовалют. Быстро, надежно и с хорошими курса��и.'
+      text: 'Отличный сервис для обмена криптовалют. Быстро, надежно и с хорошими курсами.'
     },
     {
       name: 'Мария П.',
       rating: 5,
-      text: 'Пользуюсь уже полгода, все опер��ции проходят без проблем. Рекомендую!'
+      text: 'Пользуюсь уже полгода, все операции проходят без проблем. Реко��ендую!'
     },
     {
       name: 'Дмитрий С.',
       rating: 5,
       text: 'Лучший обменник криптовалют в Казахстане. Поддержка всегда готова помочь.'
     }
-  ];
-
-  const partners = [
-    { name: 'Bitcoin', logo: '₿' },
-    { name: 'Ethereum', logo: 'Ξ' },
-    { name: 'Tether', logo: '₮' },
-    { name: 'QIWI', logo: 'Q' }
   ];
 
   const handleExchange = () => {
@@ -171,7 +146,7 @@ export default function Index() {
                 <div className="text-xs text-muted-foreground">Обменник криптовалюты</div>
               </div>
             </div>
-
+            
             <div className="modern-card px-3 py-2 rounded-full">
               <div className="flex items-center space-x-2 text-sm">
                 <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
@@ -194,11 +169,11 @@ export default function Index() {
               <span className="text-foreground">KZT ⟷ USDT</span>
             </h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-              ��амые выгодные курсы и мгновенные переводы.
+              Самые выгодные курсы и мгновенные переводы. 
               Безопасно, надежно, круглосуточно.
             </p>
           </div>
-
+          
           <div className="flex flex-wrap justify-center gap-6 mb-12">
             <div className="modern-card px-6 py-3 rounded-full">
               <div className="flex items-center space-x-2">
@@ -224,11 +199,18 @@ export default function Index() {
         {/* Exchange Section */}
         <section className="mb-20">
           <div className="grid lg:grid-cols-5 gap-8 items-start">
-              <div className="space-y-4">
-                <div>
-                  <label className="text-sm text-muted-foreground mb-2 block">Отдаете</label>
-                  <div className="flex items-center space-x-3">
-                    <div className="flex-1 relative">
+            {/* Exchange Form */}
+            <div className="lg:col-span-3">
+              <div className="exchange-card rounded-3xl p-8">
+                <div className="text-center mb-8">
+                  <h2 className="text-2xl font-bold text-foreground mb-2">Обмен валют</h2>
+                  <p className="text-muted-foreground">Введ��те сумму для расчета курса</p>
+                </div>
+                
+                <div className="space-y-6">
+                  <div>
+                    <label className="text-sm font-medium text-muted-foreground mb-3 block">Отдаете</label>
+                    <div className="relative">
                       <Input
                         value={fromAmount}
                         onChange={(e) => {
@@ -240,143 +222,99 @@ export default function Index() {
                             setFromAmount('22000');
                           }
                         }}
-                        className="bg-input border-border text-foreground pr-16"
+                        className="bg-background/50 border-border/50 text-foreground pr-16 h-14 text-lg font-medium"
                         placeholder="22000"
                         min="22000"
                       />
-                      <span className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground">
+                      <span className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground font-medium">
                         KZT
                       </span>
                     </div>
                   </div>
-                </div>
 
-                <div className="flex justify-center">
-                  <Button size="sm" variant="ghost" className="p-2 rounded-full">
-                    <ArrowRight className="w-4 h-4 rotate-90" />
-                  </Button>
-                </div>
+                  <div className="flex justify-center">
+                    <div className="modern-card p-3 rounded-full">
+                      <ArrowRight className="w-5 h-5 rotate-90 text-primary" />
+                    </div>
+                  </div>
 
-                <div>
-                  <label className="text-sm text-muted-foreground mb-2 block">Получаете</label>
-                  <div className="flex items-center space-x-3">
-                    <div className="flex-1 relative">
-                      <div className="bg-input border border-border text-foreground h-10 px-3 py-2 rounded-md pr-20 flex items-center">
+                  <div>
+                    <label className="text-sm font-medium text-muted-foreground mb-3 block">Получаете</label>
+                    <div className="relative">
+                      <div className="bg-background/30 border border-border/50 text-foreground h-14 px-4 py-2 rounded-md pr-20 flex items-center text-lg font-bold text-green-400">
                         {toAmount || '0.00'}
                       </div>
-                      <span className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground">
+                      <span className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground font-medium">
                         USDT
                       </span>
                     </div>
                   </div>
-                </div>
 
-                <Button
-                  onClick={handleExchange}
-                  className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-medium py-3"
-                >
-                  ОБМЕН
-                </Button>
+                  <Button 
+                    onClick={handleExchange}
+                    className="w-full bg-gradient-to-r from-primary to-yellow-400 hover:from-primary/90 hover:to-yellow-400/90 text-black font-bold py-4 text-lg rounded-xl h-auto shadow-lg shadow-primary/25"
+                  >
+                    НАЧАТЬ ОБМЕН
+                  </Button>
+
+                  <div className="text-center text-sm text-muted-foreground">
+                    Курс: 1 USDT = {usdtRate.toFixed(2)} KZT
+                  </div>
+                </div>
               </div>
             </div>
 
-          <div>
-            {/* Live USDT Trades */}
-            <div className="card-gradient rounded-2xl p-6">
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-xl font-semibold text-foreground">Сделки USDT в реальном времени</h3>
-                <div className="flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                  <span className="text-sm text-muted-foreground">LIVE</span>
+            {/* Live Trades */}
+            <div className="lg:col-span-2">
+              <div className="modern-card rounded-3xl p-6">
+                <div className="flex items-center justify-between mb-6">
+                  <h3 className="text-lg font-semibold text-foreground">Сделки в реальном времени</h3>
+                  <div className="flex items-center space-x-2">
+                    <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                    <span className="text-xs text-muted-foreground">LIVE</span>
+                  </div>
                 </div>
-              </div>
-              <div className="overflow-hidden">
-                <table className="w-full text-sm">
-                  <thead>
-                    <tr className="border-b border-border/20">
-                      <th className="text-left py-2 text-muted-foreground">Сумма USDT</th>
-                      <th className="text-right py-2 text-muted-foreground">Курс KZT</th>
-                      <th className="text-right py-2 text-muted-foreground">Время</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-border/10">
-                    {liveTrades.map((trade, index) => (
-                      <tr key={trade.id} className={`transition-all duration-500 ${index === 0 ? 'bg-primary/5' : ''}`}>
-                        <td className="py-2 text-foreground font-medium">{trade.amount} USDT</td>
-                        <td className="py-2 text-right text-foreground">{trade.rate} ₸</td>
-                        <td className="py-2 text-right text-muted-foreground text-xs">{trade.time}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+                <div className="space-y-3">
+                  {liveTrades.map((trade, index) => (
+                    <div key={trade.id} className={`flex justify-between items-center p-3 rounded-xl transition-all duration-500 ${index === 0 ? 'bg-primary/10 border border-primary/20' : 'bg-background/30'}`}>
+                      <div>
+                        <div className="text-sm font-medium text-foreground">{trade.amount} USDT</div>
+                        <div className="text-xs text-muted-foreground">{trade.time}</div>
+                      </div>
+                      <div className="text-right">
+                        <div className="text-sm font-medium text-foreground">{trade.rate} ₸</div>
+                        <div className={`text-xs ${trade.type === 'Покупка' ? 'text-green-400' : 'text-red-400'}`}>
+                          {trade.type}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Features Section */}
-        <section className="text-center">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-bold text-foreground mb-4">
-              Меняйте криптовалюты - 
-              <br />
-              бы��тро, выгодно, удобно!
-            </h2>
-            <p className="text-primary font-medium mb-12">
-              Покупайте Tether USDT TRC-20
-            </p>
-
-            <div className="grid md:grid-cols-3 gap-8 mb-12">
-              {features.map((feature, index) => (
-                <div key={index} className="text-center">
-                  <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/20 rounded-2xl mb-4">
-                    <feature.icon className="w-8 h-8 text-primary" />
-                  </div>
-                  <h3 className="text-lg font-semibold text-foreground mb-2">{feature.title}</h3>
-                  <p className="text-muted-foreground">{feature.description}</p>
-                </div>
-              ))}
+        {/* Stats Section */}
+        <section className="mb-20">
+          <div className="grid md:grid-cols-2 gap-8 text-center">
+            <div className="modern-card rounded-3xl p-8">
+              <div className="text-4xl font-bold text-primary mb-2">₸2М+</div>
+              <div className="text-muted-foreground">Обменов в месяц</div>
             </div>
-
-            {/* Partners */}
-            <div className="mb-12">
-              <h3 className="text-xl font-semibold text-foreground mb-6">Наши партнеры</h3>
-              <div className="flex justify-center items-center space-x-8">
-                {[1, 2, 3, 4].map((index) => (
-                  <div key={index} className="flex items-center justify-center w-16 h-16 bg-primary/10 border-2 border-dashed border-primary/30 rounded-xl">
-                    <div className="text-center">
-                      <div className="text-xs text-muted-foreground">LOGO</div>
-                      <div className="text-xs text-muted-foreground">{index}</div>
-                    </div>
-                  </div>
-                ))}
-              </div>
+            <div className="modern-card rounded-3xl p-8">
+              <div className="text-4xl font-bold text-primary mb-2">24/7</div>
+              <div className="text-muted-foreground">Поддержка клиентов</div>
             </div>
-
-            <Button
-              onClick={() => {
-                const defaultFrom = '22000';
-                const defaultTo = (22000 / 478.5 * (1 + 2 / 100)).toFixed(2);
-                exchangeStore.setExchangeData({
-                  fromAmount: defaultFrom,
-                  toAmount: defaultTo,
-                  exchangeRate: usdtRate
-                });
-                navigate('/exchange-confirm');
-              }}
-              className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3 font-medium"
-            >
-              ПЕРЕЙТИ К ОБМЕНУ
-            </Button>
           </div>
         </section>
 
         {/* Testimonials */}
-        <section>
-          <h2 className="text-3xl font-bold text-foreground text-center mb-12">Отзывы</h2>
+        <section className="mb-20">
+          <h2 className="text-3xl font-bold text-foreground text-center mb-12">Отзывы клиентов</h2>
           <div className="grid md:grid-cols-3 gap-6">
             {testimonials.map((testimonial, index) => (
-              <div key={index} className="card-gradient rounded-2xl p-6 flex flex-col h-full">
+              <div key={index} className="modern-card rounded-3xl p-6 flex flex-col h-full">
                 <div className="flex items-center mb-4">
                   {Array.from({ length: testimonial.rating }).map((_, i) => (
                     <Star key={i} className="w-4 h-4 fill-primary text-primary" />
@@ -388,44 +326,25 @@ export default function Index() {
             ))}
           </div>
         </section>
-
-        {/* About Section */}
-        <section className="card-gradient rounded-2xl p-8 text-center">
-          <h2 className="text-3xl font-bold text-foreground mb-6">О Нас</h2>
-          <div className="max-w-3xl mx-auto">
-            <p className="text-muted-foreground leading-relaxed mb-6">
-              ALMASU - ведущий обменник криптовалюты в Казахстане, предоставляющий
-              надежные и б��стрые услуги обмена цифровых активов. Мы обеспечиваем
-              высочайший уровень безопасности и удобства для наших клиентов.
-            </p>
-            <div className="grid md:grid-cols-2 gap-8 text-center">
-              <div>
-                <div className="text-3xl font-bold text-primary mb-2">₸2М+</div>
-                <div className="text-muted-foreground">Обменов в месяц</div>
-              </div>
-              <div>
-                <div className="text-3xl font-bold text-primary mb-2">24/7</div>
-                <div className="text-muted-foreground">Поддержка клиентов</div>
-              </div>
-            </div>
-          </div>
-        </section>
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-border/20 mt-16">
-        <div className="container mx-auto px-4 py-8">
+      <footer className="relative z-10 border-t border-border/20 mt-16">
+        <div className="container mx-auto px-4 py-12">
           <div className="grid md:grid-cols-2 gap-8">
             <div>
               <div className="flex items-center space-x-2 mb-4">
                 <Logo />
                 <span className="text-xl font-semibold text-foreground">ALMASU</span>
               </div>
-              <p className="text-muted-foreground">
-                Ве��ущий обменник криптовалюты
+              <p className="text-muted-foreground mb-4">
+                Ведущий обменник криптовалюты
+              </p>
+              <p className="text-sm text-muted-foreground">
+                Мы обеспечиваем надежные и быстрые услуги обмена цифровых активов с высочайшим уровнем безопасности.
               </p>
             </div>
-
+            
             <div>
               <h4 className="font-semibold text-foreground mb-4">Контакты</h4>
               <ul className="space-y-2 text-muted-foreground">
