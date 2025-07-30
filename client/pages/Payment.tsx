@@ -166,7 +166,7 @@ export default function Payment() {
             <p className="text-muted-foreground text-sm mb-2">
               Возникли проблемы с оплатой?
             </p>
-            <a href="#" className="text-primary hover:underline text-sm">
+            <a href="https://t.me/Serik_Maksat" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline text-sm">
               Связаться с поддержкой
             </a>
           </div>
