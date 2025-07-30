@@ -153,14 +153,20 @@ export default function Index() {
     ];
     const types = ["Покупка", "Продажа"];
 
-    // Use real USDT rate with small random variations
+    // Use real USDT rate with effective bonus calculation
     const baseRate = usdtRate || 478.50;
-    const variation = (Math.random() - 0.5) * 0.4; // ±0.2 variation for more realistic spread
-    const tradeRate = baseRate + variation;
+    const selectedAmount = amounts[Math.floor(Math.random() * amounts.length)];
+    const usdtAmount = parseFloat(selectedAmount.replace(',', ''));
+    const usdEquivalent = usdtAmount; // USDT ≈ USD
+
+    // Calculate effective rate with bonus for this amount
+    const effectiveRate = calculateEffectiveRateForAmount(usdEquivalent, baseRate);
+    const variation = (Math.random() - 0.5) * 0.4; // ±0.2 variation for market spread
+    const tradeRate = effectiveRate + variation;
 
     return {
       id: Date.now() + Math.random(),
-      amount: amounts[Math.floor(Math.random() * amounts.length)],
+      amount: selectedAmount,
       rate: tradeRate.toFixed(2),
       type: types[Math.floor(Math.random() * types.length)],
       time: new Date().toLocaleTimeString(),
