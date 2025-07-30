@@ -1,8 +1,9 @@
-import { useState } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ArrowLeft, ArrowRight, Globe, CheckCircle } from 'lucide-react';
+import { exchangeStore } from '@/lib/exchangeStore';
 
 export default function ExchangeConfirm() {
   const [searchParams] = useSearchParams();
