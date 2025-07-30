@@ -108,7 +108,7 @@ export default function Index() {
     {
       icon: Shield,
       title: 'Безопасность',
-      description: 'Банковская безопасность и современные методы шифрования данных'
+      description: 'Ба��ковская безопасность и современные методы шифрования данных'
     },
     {
       icon: Zap,
@@ -179,29 +179,23 @@ export default function Index() {
 
       <main className="container mx-auto px-4 py-8 space-y-16">
         {/* Exchange Section */}
-        <section className="grid lg:grid-cols-2 gap-12 items-start">
-          <div>
+        <section>
+          <div className="text-center mb-12">
             <h1 className="text-4xl lg:text-5xl font-bold text-foreground mb-6">
               Конвертация KZT в Tether USDT
             </h1>
-            <p className="text-muted-foreground text-lg mb-8 leading-relaxed">
-              Сдела��те быстрый обмен криптовалюты Tether USDT
-              <br />
-              На нашем сайте вы можете обменять KZT на 
-              <br />
-              Казахстанские тенге очень быстро, надежно и
-              <br />
-              ��ыгодно. Процесс обмена не отнимает у
-              <br />
-              вас много времени благодаря
-              <br />
-              а��томатизированному обмену процессу.
+            <p className="text-muted-foreground text-lg mb-6 leading-relaxed max-w-3xl mx-auto">
+              Сдела��те быстрый обмен криптовалюты Tether USDT. На нашем сайте вы можете обменять KZT на
+              Казахстанские тенге очень быстро, надежно и ��ыгодно. Процесс обмена не отнимает у
+              вас много времени благодаря а��томатизированному обмену процессу.
             </p>
-            <p className="text-primary font-medium mb-8">
+            <p className="text-primary font-medium">
               Самый выгодный курс обмена KZT в Tether USDT
             </p>
+          </div>
 
-            <div className="card-gradient rounded-2xl p-6 mb-8">
+          <div className="grid lg:grid-cols-2 gap-12 items-start">
+            <div className="card-gradient rounded-2xl p-6">
               <div className="space-y-4">
                 <div>
                   <label className="text-sm text-muted-foreground mb-2 block">Отдаете</label>
@@ -375,7 +369,7 @@ export default function Index() {
             <p className="text-muted-foreground leading-relaxed mb-6">
               ALMASU - ведущий обменник криптовалюты в Казахстане, предоставляющий
               надежные и б��стрые услуги обмена цифровых активов. Мы обеспечиваем
-              высочайший уровень безопасности и удобства для наших клиентов.
+              высочайший уровень безопасности и удобства для ��аших клиентов.
             </p>
             <div className="grid md:grid-cols-2 gap-8 text-center">
               <div>
@@ -406,7 +400,7 @@ export default function Index() {
             </div>
 
             <div>
-              <h4 className="font-semibold text-foreground mb-4">Конт��кты</h4>
+              <h4 className="font-semibold text-foreground mb-4">Контакты</h4>
               <ul className="space-y-2 text-muted-foreground">
                 <li><a href="https://t.me/Serik_Maksat" className="hover:text-primary transition-colors">@Serik_Maksat</a></li>
                 <li><a href="https://t.me/BelieveredST" className="hover:text-primary transition-colors">@BelieveredST</a></li>
