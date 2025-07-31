@@ -24,7 +24,11 @@ export default function ExchangeConfirm() {
       setFromAmount(exchangeData.fromAmount);
       setToAmount(exchangeData.toAmount);
       setExchangeRate(exchangeData.effectiveRate || exchangeData.exchangeRate);
-      setFinalRate(exchangeData.finalRate || exchangeData.effectiveRate || exchangeData.exchangeRate);
+      setFinalRate(
+        exchangeData.finalRate ||
+          exchangeData.effectiveRate ||
+          exchangeData.exchangeRate,
+      );
       setFinalAmount(exchangeData.finalAmount || exchangeData.toAmount);
       if (exchangeData.email) setEmail(exchangeData.email);
       if (exchangeData.walletAddress)
@@ -40,7 +44,11 @@ export default function ExchangeConfirm() {
   }, [navigate]);
 
   const applyPromoCode = () => {
-    if (promoCode.toUpperCase() === "ALMASU10" && !isPromoApplied && exchangeRate) {
+    if (
+      promoCode.toUpperCase() === "ALMASU10" &&
+      !isPromoApplied &&
+      exchangeRate
+    ) {
       // Применяем скидку 10% к курсу (убавляем курс на 10%)
       const discountedRate = exchangeRate * 0.9;
       const newAmount = (parseFloat(fromAmount) / discountedRate).toFixed(2);
@@ -124,7 +132,9 @@ export default function ExchangeConfirm() {
                   <div className="text-2xl font-bold text-foreground">
                     {finalAmount || toAmount} USDT
                     {isPromoApplied && (
-                      <span className="text-sm text-green-500 ml-2">(+10%)</span>
+                      <span className="text-sm text-green-500 ml-2">
+                        (+10%)
+                      </span>
                     )}
                   </div>
                 </div>
@@ -134,9 +144,15 @@ export default function ExchangeConfirm() {
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Курс обмена:</span>
                   <span className="text-foreground">
-                    {finalRate ? `${finalRate.toFixed(2)} ₸` : exchangeRate ? `${exchangeRate.toFixed(2)} ₸` : "..."}
+                    {finalRate
+                      ? `${finalRate.toFixed(2)} ₸`
+                      : exchangeRate
+                        ? `${exchangeRate.toFixed(2)} ₸`
+                        : "..."}
                     {isPromoApplied && (
-                      <span className="text-sm text-green-500 ml-2">(-10%)</span>
+                      <span className="text-sm text-green-500 ml-2">
+                        (-10%)
+                      </span>
                     )}
                   </span>
                 </div>
@@ -230,11 +246,13 @@ export default function ExchangeConfirm() {
                     Промокод применен! Вы получите дополнительно 10% USDT
                   </p>
                 )}
-                {promoCode && promoCode.toUpperCase() !== "ALMASU10" && !isPromoApplied && (
-                  <p className="text-red-400 text-xs mt-1">
-                    Неверный промокод
-                  </p>
-                )}
+                {promoCode &&
+                  promoCode.toUpperCase() !== "ALMASU10" &&
+                  !isPromoApplied && (
+                    <p className="text-red-400 text-xs mt-1">
+                      Неверный промокод
+                    </p>
+                  )}
               </div>
             </div>
 
@@ -275,8 +293,8 @@ export default function ExchangeConfirm() {
               Безопасная сделка
             </h3>
             <p className="text-muted-foreground text-sm">
-              Все операции защищены банковским шифрованием. Ваши данные в
-              полной безопасности.
+              Все операции защищены банковским шифрованием. Ваши данные в полной
+              безопасности.
             </p>
           </div>
         </div>

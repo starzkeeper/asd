@@ -9,7 +9,7 @@ import { handleDemo } from "./routes/demo";
 
 // ─── ✅ расчёт __dirname для ES-модуля ──────────────────────
 const __filename = fileURLToPath(import.meta.url);
-const __dirname  = dirname(__filename);
+const __dirname = dirname(__filename);
 // ─────────���──────────────────────────────────────────────────
 
 // Папка со статическим SPA-бандлом, который собрал Vite
@@ -32,7 +32,7 @@ export function createServer() {
   app.get("/api/demo", handleDemo);
 
   // Check if we're in development mode (when used with Vite)
-  const isDevelopment = process.env.NODE_ENV !== 'production';
+  const isDevelopment = process.env.NODE_ENV !== "production";
 
   if (!isDevelopment) {
     // ── статика фронта (только в продакшне) ──────────────────

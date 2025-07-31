@@ -31,7 +31,11 @@ export default function TransactionStatus() {
       setToAmount(exchangeData.finalAmount || exchangeData.toAmount);
       setEmail(exchangeData.email || "");
       setWalletAddress(exchangeData.walletAddress || "");
-      setExchangeRate(exchangeData.finalRate || exchangeData.effectiveRate || exchangeData.exchangeRate);
+      setExchangeRate(
+        exchangeData.finalRate ||
+          exchangeData.effectiveRate ||
+          exchangeData.exchangeRate,
+      );
     } else {
       // Redirect to homepage if no exchange data
       navigate("/");
@@ -243,8 +247,6 @@ export default function TransactionStatus() {
                   </Button>
                 </div>
               </div>
-
-
             </div>
           </div>
 
