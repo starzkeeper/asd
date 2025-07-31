@@ -17,6 +17,8 @@ export default function TransactionStatus() {
   const [fromAmount, setFromAmount] = useState("22000");
   const [toAmount, setToAmount] = useState("46.01");
   const [email, setEmail] = useState("");
+  const [walletAddress, setWalletAddress] = useState("");
+  const [exchangeRate, setExchangeRate] = useState<number | null>(null);
   const [status, setStatus] = useState<"processing" | "completed">(
     "processing",
   );
@@ -26,8 +28,14 @@ export default function TransactionStatus() {
     const exchangeData = exchangeStore.getExchangeData();
     if (exchangeData) {
       setFromAmount(exchangeData.fromAmount);
-      setToAmount(exchangeData.toAmount);
+      setToAmount(exchangeData.finalAmount || exchangeData.toAmount);
       setEmail(exchangeData.email || "");
+      setWalletAddress(exchangeData.walletAddress || "");
+      setExchangeRate(
+        exchangeData.finalRate ||
+          exchangeData.effectiveRate ||
+          exchangeData.exchangeRate,
+      );
     } else {
       // Redirect to homepage if no exchange data
       navigate("/");
@@ -51,7 +59,6 @@ export default function TransactionStatus() {
   }, []);
 
   const transactionId = "TX" + Date.now().toString().slice(-8);
-  const walletAddress = "TQn9Y2khEsLJW1ChVWFMSMeRDow5KcbLSE";
 
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
@@ -208,7 +215,9 @@ export default function TransactionStatus() {
 
                 <div className="flex justify-between items-center p-3 bg-background/30 rounded-lg">
                   <span className="text-muted-foreground">Курс обмена:</span>
-                  <span className="text-foreground">478.50 ₸</span>
+                  <span className="text-foreground">
+                    {exchangeRate ? `${exchangeRate.toFixed(2)} ₸` : "478.50 ₸"}
+                  </span>
                 </div>
 
                 <div className="flex justify-between items-center p-3 bg-background/30 rounded-lg">
@@ -238,15 +247,6 @@ export default function TransactionStatus() {
                   </Button>
                 </div>
               </div>
-
-              {/* Email Confirmation */}
-              {email && (
-                <div className="bg-primary/10 border border-primary/20 rounded-xl p-4">
-                  <p className="text-primary">
-                    📧 Подтверждение отправлено на <strong>{email}</strong>
-                  </p>
-                </div>
-              )}
             </div>
           </div>
 
