@@ -205,7 +205,7 @@ export default function ExchangeConfirm() {
                     value={promoCode}
                     onChange={(e) => setPromoCode(e.target.value.toUpperCase())}
                     className="bg-input border-border text-foreground flex-1"
-                    placeholder="ALMASU10"
+                    placeholder="Введите промокод"
                     disabled={isPromoApplied}
                     maxLength={10}
                   />
@@ -245,7 +245,7 @@ export default function ExchangeConfirm() {
                 htmlFor="agreement"
                 className="text-sm text-muted-foreground leading-relaxed"
               >
-                Я согласен с условиями использования и политикой
+                Я согласен с условиями использования и полити��ой
                 конфиденциальности
               </label>
             </div>
