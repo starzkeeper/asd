@@ -13,6 +13,10 @@ export default function ExchangeConfirm() {
   const [fromAmount, setFromAmount] = useState("22000");
   const [toAmount, setToAmount] = useState("46.01");
   const [exchangeRate, setExchangeRate] = useState<number | null>(null);
+  const [promoCode, setPromoCode] = useState("");
+  const [isPromoApplied, setIsPromoApplied] = useState(false);
+  const [finalRate, setFinalRate] = useState<number | null>(null);
+  const [finalAmount, setFinalAmount] = useState("");
 
   useEffect(() => {
     const exchangeData = exchangeStore.getExchangeData();
@@ -20,20 +24,43 @@ export default function ExchangeConfirm() {
       setFromAmount(exchangeData.fromAmount);
       setToAmount(exchangeData.toAmount);
       setExchangeRate(exchangeData.effectiveRate || exchangeData.exchangeRate);
+      setFinalRate(exchangeData.finalRate || exchangeData.effectiveRate || exchangeData.exchangeRate);
+      setFinalAmount(exchangeData.finalAmount || exchangeData.toAmount);
       if (exchangeData.email) setEmail(exchangeData.email);
       if (exchangeData.walletAddress)
         setWalletAddress(exchangeData.walletAddress);
+      if (exchangeData.promoCode) {
+        setPromoCode(exchangeData.promoCode);
+        setIsPromoApplied(true);
+      }
     } else {
       // Redirect to homepage if no exchange data
       navigate("/");
     }
   }, [navigate]);
 
+  const applyPromoCode = () => {
+    if (promoCode.toUpperCase() === "ALMASU10" && !isPromoApplied && exchangeRate) {
+      // Применяем скидку 10% к курсу (убавляем курс на 10%)
+      const discountedRate = exchangeRate * 0.9;
+      const newAmount = (parseFloat(fromAmount) / discountedRate).toFixed(2);
+
+      setFinalRate(discountedRate);
+      setFinalAmount(newAmount);
+      setIsPromoApplied(true);
+    }
+  };
+
   const handleConfirm = () => {
-    exchangeStore.updateExchangeData({
+    const dataToStore = {
       email,
       walletAddress,
-    });
+      promoCode: isPromoApplied ? promoCode : undefined,
+      finalRate: finalRate,
+      finalAmount: finalAmount,
+    };
+
+    exchangeStore.updateExchangeData(dataToStore);
     navigate("/payment");
   };
 
@@ -95,7 +122,10 @@ export default function ExchangeConfirm() {
                 <div className="text-right">
                   <div className="text-sm text-muted-foreground">Получаете</div>
                   <div className="text-2xl font-bold text-foreground">
-                    {toAmount} USDT
+                    {finalAmount || toAmount} USDT
+                    {isPromoApplied && (
+                      <span className="text-sm text-green-500 ml-2">(+10%)</span>
+                    )}
                   </div>
                 </div>
               </div>
@@ -104,7 +134,10 @@ export default function ExchangeConfirm() {
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Курс обмена:</span>
                   <span className="text-foreground">
-                    {exchangeRate ? `${exchangeRate.toFixed(2)} ₸` : "..."}
+                    {finalRate ? `${finalRate.toFixed(2)} ₸` : exchangeRate ? `${exchangeRate.toFixed(2)} ₸` : "..."}
+                    {isPromoApplied && (
+                      <span className="text-sm text-green-500 ml-2">(-10%)</span>
+                    )}
                   </span>
                 </div>
                 <div className="flex justify-between">
@@ -159,6 +192,47 @@ export default function ExchangeConfirm() {
                 {walletAddress.length === 0 && (
                   <p className="text-red-400 text-xs mt-1">
                     Поле обязательно для заполнения
+                  </p>
+                )}
+              </div>
+
+              <div>
+                <label className="text-sm text-muted-foreground mb-2 block">
+                  Промокод (необязательно)
+                </label>
+                <div className="flex space-x-2">
+                  <Input
+                    value={promoCode}
+                    onChange={(e) => setPromoCode(e.target.value.toUpperCase())}
+                    className="bg-input border-border text-foreground flex-1"
+                    placeholder="ALMASU10"
+                    disabled={isPromoApplied}
+                    maxLength={10}
+                  />
+                  {!isPromoApplied ? (
+                    <Button
+                      type="button"
+                      onClick={applyPromoCode}
+                      variant="outline"
+                      disabled={!promoCode.trim()}
+                      className="px-4"
+                    >
+                      Применить
+                    </Button>
+                  ) : (
+                    <div className="px-4 py-2 bg-green-500/20 text-green-400 rounded-md text-sm flex items-center">
+                      ✓ Применен
+                    </div>
+                  )}
+                </div>
+                {isPromoApplied && (
+                  <p className="text-green-400 text-xs mt-1">
+                    Промокод применен! Вы получите дополнительно 10% USDT
+                  </p>
+                )}
+                {promoCode && promoCode.toUpperCase() !== "ALMASU10" && !isPromoApplied && (
+                  <p className="text-red-400 text-xs mt-1">
+                    Неверный промокод
                   </p>
                 )}
               </div>
