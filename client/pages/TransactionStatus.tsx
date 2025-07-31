@@ -244,14 +244,7 @@ export default function TransactionStatus() {
                 </div>
               </div>
 
-              {/* Email Confirmation */}
-              {email && (
-                <div className="bg-primary/10 border border-primary/20 rounded-xl p-4">
-                  <p className="text-primary">
-                    📧 Подтверждение отправлено на <strong>{email}</strong>
-                  </p>
-                </div>
-              )}
+
             </div>
           </div>
 
