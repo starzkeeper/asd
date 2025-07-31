@@ -16,7 +16,7 @@ export default function Payment() {
     const exchangeData = exchangeStore.getExchangeData();
     if (exchangeData) {
       setFromAmount(exchangeData.fromAmount);
-      setToAmount(exchangeData.toAmount);
+      setToAmount(exchangeData.finalAmount || exchangeData.toAmount);
       setEmail(exchangeData.email || "");
     } else {
       // Redirect to homepage if no exchange data
@@ -129,7 +129,7 @@ export default function Payment() {
                     <li>Откройте мобильное приложение вашего банка</li>
                     <li>Выберите "Перевод на карту"</li>
                     <li>
-                      Введите номер карты:{" "}
+                      Введите номер к��рты:{" "}
                       <span className="text-foreground font-mono">
                         4003 0351 1568 5047
                       </span>
